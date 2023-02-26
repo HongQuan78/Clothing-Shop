@@ -38,13 +38,13 @@ namespace Clothing_shop
             ViewEmployeeList.Columns.Add("EmployeeUsername", "Username");
             ViewEmployeeList.Columns.Add("EmployeePhone", "Phone");
             ViewEmployeeList.Columns.Add("EmployeeAddress", "Address");
-
+            ViewEmployeeList.Columns.Add("EmployeeBirthDay", "Birthday");
             // Lấy danh sách nhân viên từ CSDL và hiển thị trong DataGridView
             List<Employees> employees = new EmployeesDAO().GetAllEmployees();
             ViewEmployeeList.Rows.Clear();
             foreach (Employees employee in employees)
             {
-                ViewEmployeeList.Rows.Add(employee.EmployeeID, employee.EmployeeName, employee.EmployeeUsername, employee.EmployeePhone, employee.EmployeeAddress);
+                ViewEmployeeList.Rows.Add(employee.EmployeeID, employee.EmployeeName, employee.EmployeeUsername, employee.EmployeePhone, employee.EmployeeAddress, employee.EmployeeBirthDay);
             }
 
 

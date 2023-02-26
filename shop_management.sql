@@ -1,14 +1,14 @@
 CREATE DATABASE clothing_shop_management;
 USE clothing_shop_management;
 
-CREATE TRIGGER trg_Inventory_Update
+CREATE TRIGGER trg_UpdateInventory
 ON OrderItems
-AFTER INSERT, UPDATE
+AFTER INSERT
 AS
 BEGIN
     UPDATE Inventory
-    SET Quantity = Quantity - i.Quantity
-    FROM Inventory
+    SET Inventory_Quantity = Inventory_Quantity - i.OrderItems_Quantity
+    FROM Inventory 
     INNER JOIN inserted i ON Inventory.ProductID = i.ProductID
 END
 
@@ -20,8 +20,10 @@ CREATE TABLE Employees (
     EmployeeUsername VARCHAR(50) NOT NULL,
     EmployeePassword VARCHAR(50) NOT NULL,
     EmployeePhone VARCHAR(20) NOT NULL,
-    EmployeeAddress VARCHAR(250) NOT NULL
+    EmployeeAddress VARCHAR(250) NOT NULL,
+	EmployeeBirthDay DATETIME NOT NULL
 );
+
 
 CREATE TABLE Customers (
     CustomerID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -59,7 +61,6 @@ CREATE TABLE Orders (
 	OrderDate DATETIME NOT NULL DEFAULT(GETDATE()),
     TotalAmount FLOAT NOT NULL,
     [Status] VARCHAR(50) NOT NULL DEFAULT('Pending'),
-    CreatedDate DATETIME NOT NULL DEFAULT(GETDATE()),
 	ModifiedDate DATETIME,
 	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
@@ -77,16 +78,18 @@ CREATE TABLE OrderItems (
 CREATE TABLE [Returns] (
 	[ReturnID] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     OrderID INT NOT NULL,
+	Reason VARCHAR(200),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
 
-INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress)
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay) 
 VALUES 
-('John Smith', 'Manager', 'jsmith', 'password123', '555-1234', '123 Main St.'),
-('Jane Doe', 'Staff', 'jdoe', 'password456', '555-5678', '456 High St.'),
-('Bob Johnson', 'Staff', 'bjohnson', 'password789', '555-2468', '789 Broad St.'),
-('Sarah Lee', 'Staff', 'slee', 'password101112', '555-3691', '369 Maple Ave.'),
-('David Chen', 'Staff', 'dchen', 'password131415', '555-4836', '483 Oak St.');
+('John Smith', 'Manager', 'john.smith', 'password123', '123-456-7890', '123 Main St', '1990-01-01'),
+('Sarah Johnson', 'Sales', 'sarah.johnson', 'password456', '555-123-4567', '456 Elm St', '1995-02-14'),
+('Michael Brown', 'IT', 'michael.brown', 'password789', '888-555-1234', '789 Oak St', '1985-05-15'),
+('Emily Davis', 'HR', 'emily.davis', 'passwordabc', '111-222-3333', '321 Maple St', '1988-10-27'),
+('David Lee', 'Finance', 'david.lee', 'passworddef', '444-777-8888', '567 Pine St', '1993-06-30');
+
 
 INSERT INTO Customers (CustomerName, CustomerPhone, CustomerAddress)
 VALUES 
@@ -112,7 +115,7 @@ VALUES
 ('Athletic Shorts', 'Moisture-wicking shorts for sports and exercise.', 24.99, 4),
 ('Winter Coat', 'A warm and cozy coat for cold weather.', 99.99, 5);
 
-INSERT INTO Inventory (ProductID, Quantity)
+INSERT INTO Inventory (ProductID, Inventory_Quantity)
 VALUES 
 (1, 100),
 (2, 50),
@@ -130,7 +133,7 @@ VALUES
 (5, 3, 89.97);
 
 -- Insert order items
-INSERT INTO OrderItems (OrderID, ProductID, Quantity)
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
 VALUES 
 (1, 1, 3),
 (1, 3, 2),

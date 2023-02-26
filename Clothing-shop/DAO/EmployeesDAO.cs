@@ -17,7 +17,7 @@ namespace Clothing_shop.DAO
         {
             List<Employees> employees = new List<Employees>();
             connection = new DBConnect().getConnection();
-            string sql = "SELECT EmployeeID, EmployeeName, EmployeeRole, EmployeeUsername, EmployeePhone, EmployeeAddress FROM Employees";
+            string sql = "SELECT * FROM Employees";
             using (connection = new DBConnect().getConnection())
             {
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -35,6 +35,7 @@ namespace Clothing_shop.DAO
                             employee.EmployeePassword = reader.GetString(4);
                             employee.EmployeePhone = reader.GetString(5);
                             employee.EmployeeAddress = reader.GetString(6);
+                            employee.EmployeeBirthDay = reader.GetDateTime(7);
                             employees.Add(employee);
                         }
                     }
@@ -47,8 +48,8 @@ namespace Clothing_shop.DAO
         {
             using (connection = new DBConnect().getConnection())
             {
-                string sql = "INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress) " +
-                             "VALUES (@EmployeeName, @EmployeeRole, @EmployeeUsername, @EmployeePassword, @EmployeePhone, @EmployeeAddress)";
+                string sql = "INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay) " +
+                             "VALUES (@EmployeeName, @EmployeeRole, @EmployeeUsername, @EmployeePassword, @EmployeePhone, @EmployeeAddress, @EmployeeBirthDay)";
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -58,7 +59,7 @@ namespace Clothing_shop.DAO
                     command.Parameters.AddWithValue("@EmployeePassword", employee.EmployeePassword);
                     command.Parameters.AddWithValue("@EmployeePhone", employee.EmployeePhone);
                     command.Parameters.AddWithValue("@EmployeeAddress", employee.EmployeeAddress);
-
+                    command.Parameters.AddWithValue("@EmployeeAddress", employee.EmployeeBirthDay);
                     command.ExecuteNonQuery();
                 }
             }
@@ -68,7 +69,9 @@ namespace Clothing_shop.DAO
         {
             using (connection = new DBConnect().getConnection())
             {
-                string sql = "UPDATE Employees SET EmployeeName=@EmployeeName, EmployeeRole=@EmployeeRole, EmployeeUsername=@EmployeeUsername, EmployeePassword=@EmployeePassword, EmployeePhone=@EmployeePhone, EmployeeAddress=@EmployeeAddress WHERE EmployeeID=@EmployeeID";
+                string sql = "UPDATE Employees SET EmployeeName=@EmployeeName, EmployeeRole=@EmployeeRole, EmployeeUsername=@EmployeeUsername, " +
+                    "EmployeePassword=@EmployeePassword, EmployeePhone=@EmployeePhone, EmployeeAddress=@EmployeeAddress, EmployeeBirthDay=@EmployeeBirthDay " +
+                    "WHERE EmployeeID=@EmployeeID";
 
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(sql, connection))
@@ -79,6 +82,7 @@ namespace Clothing_shop.DAO
                     command.Parameters.AddWithValue("@EmployeeUsername", employee.EmployeeUsername);
                     command.Parameters.AddWithValue("@EmployeePassword", employee.EmployeePassword);
                     command.Parameters.AddWithValue("@EmployeePhone", employee.EmployeePhone);
+                    command.Parameters.AddWithValue("@EmployeeBirthDay", employee.EmployeeBirthDay);
                     command.Parameters.AddWithValue("@EmployeeAddress", employee.EmployeeAddress);
 
                     command.ExecuteNonQuery();
@@ -154,6 +158,7 @@ namespace Clothing_shop.DAO
                             employee.EmployeePassword = reader.GetString(4);
                             employee.EmployeePhone = reader.GetString(5);
                             employee.EmployeeAddress = reader.GetString(6);
+                            employee.EmployeeBirthDay = reader.GetDateTime(7);
                         }
                     }
                 }

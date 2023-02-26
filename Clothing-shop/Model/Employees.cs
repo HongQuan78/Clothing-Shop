@@ -16,8 +16,9 @@ namespace Clothing_shop.Model
         public String EmployeePassword { get; set; }
         public String EmployeePhone { get; set; }
         public String EmployeeAddress { get; set; }
+        public DateTime EmployeeBirthDay { get; set; }
         public Employees() { }
-        public Employees(int employeeID, string employeeName, string employeeRole, string employeeUsername, string employeePassword, string employeePhone, string employeeAddress)
+        public Employees(int employeeID, string employeeName, string employeeRole, string employeeUsername, string employeePassword, string employeePhone, string employeeAddress, DateTime employeeBirthDay)
         {
             EmployeeID = employeeID;
             EmployeeName = employeeName;
@@ -26,6 +27,7 @@ namespace Clothing_shop.Model
             EmployeePassword = employeePassword;
             EmployeePhone = employeePhone;
             EmployeeAddress = employeeAddress;
+            EmployeeBirthDay = employeeBirthDay;
         }
     }
 }

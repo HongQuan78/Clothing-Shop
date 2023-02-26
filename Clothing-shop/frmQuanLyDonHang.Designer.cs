@@ -43,13 +43,6 @@
             this.quanLyDonHang = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyNhanVien_Menu = new System.Windows.Forms.ToolStripMenuItem();
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
-            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeRoleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeUsernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeePasswordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeePhoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -58,17 +51,7 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.employeeIDDataGridViewTextBoxColumn,
-            this.employeeNameDataGridViewTextBoxColumn,
-            this.employeeRoleDataGridViewTextBoxColumn,
-            this.employeeUsernameDataGridViewTextBoxColumn,
-            this.employeePasswordDataGridViewTextBoxColumn,
-            this.employeePhoneDataGridViewTextBoxColumn,
-            this.employeeAddressDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.employeesBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(12, 211);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(776, 227);
@@ -191,48 +174,6 @@
             this.xemHangTraLai.Text = "Xem Hàng Trả Lại";
             this.xemHangTraLai.Click += new System.EventHandler(this.xemHangTraLaiToolStripMenuItem_Click);
             // 
-            // employeeIDDataGridViewTextBoxColumn
-            // 
-            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
-            // 
-            // employeeNameDataGridViewTextBoxColumn
-            // 
-            this.employeeNameDataGridViewTextBoxColumn.DataPropertyName = "EmployeeName";
-            this.employeeNameDataGridViewTextBoxColumn.HeaderText = "EmployeeName";
-            this.employeeNameDataGridViewTextBoxColumn.Name = "employeeNameDataGridViewTextBoxColumn";
-            // 
-            // employeeRoleDataGridViewTextBoxColumn
-            // 
-            this.employeeRoleDataGridViewTextBoxColumn.DataPropertyName = "EmployeeRole";
-            this.employeeRoleDataGridViewTextBoxColumn.HeaderText = "EmployeeRole";
-            this.employeeRoleDataGridViewTextBoxColumn.Name = "employeeRoleDataGridViewTextBoxColumn";
-            // 
-            // employeeUsernameDataGridViewTextBoxColumn
-            // 
-            this.employeeUsernameDataGridViewTextBoxColumn.DataPropertyName = "EmployeeUsername";
-            this.employeeUsernameDataGridViewTextBoxColumn.HeaderText = "EmployeeUsername";
-            this.employeeUsernameDataGridViewTextBoxColumn.Name = "employeeUsernameDataGridViewTextBoxColumn";
-            // 
-            // employeePasswordDataGridViewTextBoxColumn
-            // 
-            this.employeePasswordDataGridViewTextBoxColumn.DataPropertyName = "EmployeePassword";
-            this.employeePasswordDataGridViewTextBoxColumn.HeaderText = "EmployeePassword";
-            this.employeePasswordDataGridViewTextBoxColumn.Name = "employeePasswordDataGridViewTextBoxColumn";
-            // 
-            // employeePhoneDataGridViewTextBoxColumn
-            // 
-            this.employeePhoneDataGridViewTextBoxColumn.DataPropertyName = "EmployeePhone";
-            this.employeePhoneDataGridViewTextBoxColumn.HeaderText = "EmployeePhone";
-            this.employeePhoneDataGridViewTextBoxColumn.Name = "employeePhoneDataGridViewTextBoxColumn";
-            // 
-            // employeeAddressDataGridViewTextBoxColumn
-            // 
-            this.employeeAddressDataGridViewTextBoxColumn.DataPropertyName = "EmployeeAddress";
-            this.employeeAddressDataGridViewTextBoxColumn.HeaderText = "EmployeeAddress";
-            this.employeeAddressDataGridViewTextBoxColumn.Name = "employeeAddressDataGridViewTextBoxColumn";
-            // 
             // employeesBindingSource
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
@@ -284,12 +225,5 @@
         private System.Windows.Forms.ToolStripMenuItem quanLyNhanVien_Menu;
         private System.Windows.Forms.ToolStripMenuItem xemHangTraLai;
         private System.Windows.Forms.BindingSource employeesBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeNameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeRoleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeUsernameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeePasswordDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeePhoneDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn employeeAddressDataGridViewTextBoxColumn;
     }
 }
