@@ -8,11 +8,20 @@ namespace Clothing_shop.Model
 {
     public class Products
     {
-        public int Product_ID { get; set; }
-        public string Product_Name { get; set; }
-        public double Product_Price { get; set; }
-        public string Product_Description { get; set;}
+        private int ProductID { get; set; }
+        private String ProductName { get; set; }
+        private String ProductDescription { get; set; }
+        private double ProductPrice { get; set; }
+        private String CategoryID { get; set; }
+        public Products(int productID, String productName, String productDescription, double productPrice, String categoryID)
+        {
+            ProductID = productID;
+            ProductName = productName;
+            ProductDescription = productDescription;
+            ProductPrice = productPrice;
+            CategoryID = categoryID;
+        }
 
-        public string Product_CategoryID { get; set; }
+
     }
 }

@@ -8,18 +8,18 @@ namespace Clothing_shop.Model
 {
     public class Customers
     {
-        public Customers() { }
-        public String Customer_ID { get; set; }
-        public String Customer_Name { get; set; }
-        
-        public String Customer_Phone { get; set;}
-        public String Customer_Address { get; set;}
-        public Customers(string customer_ID, string customer_Name, string customer_Phone, string customer_Address)
+        private Customers() { }
+        private String CustomerID { get; set; }
+        private String CustomerName { get; set; }
+
+        private String CustomerPhone { get; set;}
+        private String CustomerAddress { get; set;}
+        public Customers(string customerID, string customerName, string customerPhone, string customerAddress)
         {
-            Customer_ID = customer_ID;
-            Customer_Name = customer_Name;
-            Customer_Phone = customer_Phone;
-            Customer_Address = customer_Address;
+            CustomerID = customerID;
+            CustomerName = customerName;
+            CustomerPhone = customerPhone;
+            CustomerAddress = customerAddress;
         }
     }
 }

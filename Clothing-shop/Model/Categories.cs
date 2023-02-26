@@ -8,15 +8,14 @@ namespace Clothing_shop.Model
 {
     public class Categories
     {
-        public Categories() { }
-        public String Category_ID { get; set; }
-        public String Category_Name { get; set; }
-        public int Product_quantity { get; set; }
-        public Categories(string category_ID, string category_Name, int product_quantity)
+        private String CategoryID { get; set; }
+        private String CategoryName { get; set; }
+        private String CategoryDescription { get; set; }
+        public Categories(string categoryID, string categoryName, string categoryDescription)
         {
-            Category_ID = category_ID;
-            Category_Name = category_Name;
-            Product_quantity = product_quantity;
+            CategoryID = categoryID;
+            CategoryName = categoryName;
+            CategoryDescription = categoryDescription;
         }
     }
 }

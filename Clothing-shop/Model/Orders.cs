@@ -4,20 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clothing_shop.Model
+namespace Clothing_shop.DBConnection
 {
     public class Orders
     {
-        public int Order_ID { get; set; }
-        public int Customer_ID { get; set;}
-        public int Employee_ID { get; set;}
-        public DateTime Order_date { get; set; }
-        public Orders(int order_ID, int customer_ID, int employee_ID, DateTime order_date)
+        private int OrderID { get; set; }
+        private int CustomerID { get; set; }
+        private int EmployeeID { get; set; }
+        private DateTime OrderDate { get; set; }
+        private double TotalAmount { get; set; }
+        private string Status { get; set; }
+        private DateTime ModifiedDate { get; set; }
+        public Orders(int orderID, int customerID, int employeeID, DateTime orderDate, double totalAmount, string status, DateTime modifiedDate)
         {
-            Order_ID = order_ID;
-            Customer_ID = customer_ID;
-            Employee_ID = employee_ID;
-            Order_date = order_date;
+            OrderID = orderID;
+            CustomerID = customerID;
+            EmployeeID = employeeID;
+            OrderDate = orderDate;
+            TotalAmount = totalAmount;
+            Status = status;
+            ModifiedDate = modifiedDate;
         }
     }
 }

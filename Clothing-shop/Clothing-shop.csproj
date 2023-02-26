@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\OrderItems.cs" />
+    <Compile Include="Model\Orders.cs" />
     <Compile Include="frmHangBiTraLai.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,8 +56,10 @@
     </Compile>
     <Compile Include="Model\Categories.cs" />
     <Compile Include="Model\Customers.cs" />
+    <Compile Include="Model\Inventory.cs" />
     <Compile Include="Model\Products.cs" />
     <Compile Include="Model\Employees.cs" />
+    <Compile Include="Model\Returns.cs" />
     <Compile Include="showForm.cs" />
     <Compile Include="frmQuanLyDonHang.cs">
       <SubType>Form</SubType>
@@ -128,6 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DAO\" />
+    <Folder Include="DBConnection\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
