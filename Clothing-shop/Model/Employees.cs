@@ -9,15 +9,15 @@ namespace Clothing_shop.Model
     public class Employees
     {
 
-        private String EmployeeID { get; set; }
-        private String EmployeeName { get; set; }
-        private String EmployeeRole { get; set; }
-        private String EmployeeUsername { get; set; }
-        private String EmployeePassword { get; set; }
-        private String EmployeePhone { get; set; }
-        private String EmployeeAddress { get; set; }
-        private Employees() { }
-        public Employees(string employeeID, string employeeName, string employeeRole, string employeeUsername, string employeePassword, string employeePhone, string employeeAddress)
+        public int EmployeeID { get; set; }
+        public String EmployeeName { get; set; }
+        public String EmployeeRole { get; set; }
+        public String EmployeeUsername { get; set; }
+        public String EmployeePassword { get; set; }
+        public String EmployeePhone { get; set; }
+        public String EmployeeAddress { get; set; }
+        public Employees() { }
+        public Employees(int employeeID, string employeeName, string employeeRole, string employeeUsername, string employeePassword, string employeePhone, string employeeAddress)
         {
             EmployeeID = employeeID;
             EmployeeName = employeeName;

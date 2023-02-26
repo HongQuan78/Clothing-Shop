@@ -8,9 +8,9 @@ namespace Clothing_shop.Model
 {
     public class Inventory
     {
-        private int InventoryID { get; set; }
-        private int ProductID { get; set; }
-        private int Inventory_Quantity { get; set; }
+        public int InventoryID { get; set; }
+        public int ProductID { get; set; }
+        public int Inventory_Quantity { get; set; }
         public Inventory(int inventoryID, int productID, int inventory_Quantity)
         {
             InventoryID = inventoryID;

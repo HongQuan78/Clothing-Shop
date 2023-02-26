@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\EmployeesDAO.cs" />
+    <Compile Include="DBConnection\DBConnect.cs" />
     <Compile Include="Model\OrderItems.cs" />
     <Compile Include="Model\Orders.cs" />
     <Compile Include="frmHangBiTraLai.cs">
@@ -133,9 +135,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAO\" />
-    <Folder Include="DBConnection\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

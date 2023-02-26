@@ -8,13 +8,13 @@ namespace Clothing_shop.DBConnection
 {
     public class Orders
     {
-        private int OrderID { get; set; }
-        private int CustomerID { get; set; }
-        private int EmployeeID { get; set; }
-        private DateTime OrderDate { get; set; }
-        private double TotalAmount { get; set; }
-        private string Status { get; set; }
-        private DateTime ModifiedDate { get; set; }
+        public int OrderID { get; set; }
+        public int CustomerID { get; set; }
+        public int EmployeeID { get; set; }
+        public DateTime OrderDate { get; set; }
+        public double TotalAmount { get; set; }
+        public string Status { get; set; }
+        public DateTime ModifiedDate { get; set; }
         public Orders(int orderID, int customerID, int employeeID, DateTime orderDate, double totalAmount, string status, DateTime modifiedDate)
         {
             OrderID = orderID;
