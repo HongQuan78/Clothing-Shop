@@ -52,6 +52,10 @@
     <Compile Include="frmHangBiTraLai.Designer.cs">
       <DependentUpon>frmHangBiTraLai.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Categories.cs" />
+    <Compile Include="Model\Customers.cs" />
+    <Compile Include="Model\Products.cs" />
+    <Compile Include="Model\Employees.cs" />
     <Compile Include="showForm.cs" />
     <Compile Include="frmQuanLyDonHang.cs">
       <SubType>Form</SubType>
