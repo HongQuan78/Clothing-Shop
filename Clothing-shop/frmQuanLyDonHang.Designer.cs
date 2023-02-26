@@ -28,44 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddOrder = new System.Windows.Forms.Button();
             this.btnDeleteOrder = new System.Windows.Forms.Button();
             this.btnUpdateOrder = new System.Windows.Forms.Button();
-            this.orderDetail_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cus_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cus_address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cus_phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.order_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtSearchBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.QuanLyDonHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quanLyDonHang = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyNhanVien_Menu = new System.Windows.Forms.ToolStripMenuItem();
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
+            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeRoleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeUsernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeePasswordDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeePhoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeAddressDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.orderDetail_ID,
-            this.cus_name,
-            this.cus_address,
-            this.cus_phone,
-            this.order_date,
-            this.totalPrice});
+            this.employeeIDDataGridViewTextBoxColumn,
+            this.employeeNameDataGridViewTextBoxColumn,
+            this.employeeRoleDataGridViewTextBoxColumn,
+            this.employeeUsernameDataGridViewTextBoxColumn,
+            this.employeePasswordDataGridViewTextBoxColumn,
+            this.employeePhoneDataGridViewTextBoxColumn,
+            this.employeeAddressDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.employeesBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(12, 211);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(776, 227);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label1
             // 
@@ -111,40 +119,6 @@
             this.btnUpdateOrder.Text = "Chỉnh sửa";
             this.btnUpdateOrder.UseVisualStyleBackColor = true;
             // 
-            // orderDetail_ID
-            // 
-            this.orderDetail_ID.HeaderText = "ID";
-            this.orderDetail_ID.Name = "orderDetail_ID";
-            this.orderDetail_ID.ReadOnly = true;
-            // 
-            // cus_name
-            // 
-            this.cus_name.HeaderText = "Tên Khách Hàng";
-            this.cus_name.Name = "cus_name";
-            this.cus_name.Width = 150;
-            // 
-            // cus_address
-            // 
-            this.cus_address.FillWeight = 200F;
-            this.cus_address.HeaderText = "Địa Chỉ";
-            this.cus_address.Name = "cus_address";
-            this.cus_address.Width = 200;
-            // 
-            // cus_phone
-            // 
-            this.cus_phone.HeaderText = "Số Điện Thoại";
-            this.cus_phone.Name = "cus_phone";
-            // 
-            // order_date
-            // 
-            this.order_date.HeaderText = "Ngày tạo";
-            this.order_date.Name = "order_date";
-            // 
-            // totalPrice
-            // 
-            this.totalPrice.HeaderText = "Giá Tiền";
-            this.totalPrice.Name = "totalPrice";
-            // 
             // txtSearchBox
             // 
             this.txtSearchBox.Location = new System.Drawing.Point(133, 90);
@@ -184,38 +158,84 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // menuToolStripMenuItem
             // 
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.QuanLyDonHangToolStripMenuItem,
+            this.quanLyDonHang,
             this.quanLyNhanVien_Menu,
             this.xemHangTraLai});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
-            // QuanLyDonHangToolStripMenuItem
+            // quanLyDonHang
             // 
-            this.QuanLyDonHangToolStripMenuItem.Name = "QuanLyDonHangToolStripMenuItem";
-            this.QuanLyDonHangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.QuanLyDonHangToolStripMenuItem.Text = "Quản lý đơn hàng";
+            this.quanLyDonHang.Name = "quanLyDonHang";
+            this.quanLyDonHang.Size = new System.Drawing.Size(170, 22);
+            this.quanLyDonHang.Text = "Quản lý đơn hàng";
             // 
             // quanLyNhanVien_Menu
             // 
             this.quanLyNhanVien_Menu.Name = "quanLyNhanVien_Menu";
-            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(180, 22);
+            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(170, 22);
             this.quanLyNhanVien_Menu.Text = "Quản lý nhân viên";
             this.quanLyNhanVien_Menu.Click += new System.EventHandler(this.quanLyNhanVien_Menu_Click);
             // 
             // xemHangTraLai
             // 
             this.xemHangTraLai.Name = "xemHangTraLai";
-            this.xemHangTraLai.Size = new System.Drawing.Size(180, 22);
+            this.xemHangTraLai.Size = new System.Drawing.Size(170, 22);
             this.xemHangTraLai.Text = "Xem Hàng Trả Lại";
             this.xemHangTraLai.Click += new System.EventHandler(this.xemHangTraLaiToolStripMenuItem_Click);
+            // 
+            // employeeIDDataGridViewTextBoxColumn
+            // 
+            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
+            // 
+            // employeeNameDataGridViewTextBoxColumn
+            // 
+            this.employeeNameDataGridViewTextBoxColumn.DataPropertyName = "EmployeeName";
+            this.employeeNameDataGridViewTextBoxColumn.HeaderText = "EmployeeName";
+            this.employeeNameDataGridViewTextBoxColumn.Name = "employeeNameDataGridViewTextBoxColumn";
+            // 
+            // employeeRoleDataGridViewTextBoxColumn
+            // 
+            this.employeeRoleDataGridViewTextBoxColumn.DataPropertyName = "EmployeeRole";
+            this.employeeRoleDataGridViewTextBoxColumn.HeaderText = "EmployeeRole";
+            this.employeeRoleDataGridViewTextBoxColumn.Name = "employeeRoleDataGridViewTextBoxColumn";
+            // 
+            // employeeUsernameDataGridViewTextBoxColumn
+            // 
+            this.employeeUsernameDataGridViewTextBoxColumn.DataPropertyName = "EmployeeUsername";
+            this.employeeUsernameDataGridViewTextBoxColumn.HeaderText = "EmployeeUsername";
+            this.employeeUsernameDataGridViewTextBoxColumn.Name = "employeeUsernameDataGridViewTextBoxColumn";
+            // 
+            // employeePasswordDataGridViewTextBoxColumn
+            // 
+            this.employeePasswordDataGridViewTextBoxColumn.DataPropertyName = "EmployeePassword";
+            this.employeePasswordDataGridViewTextBoxColumn.HeaderText = "EmployeePassword";
+            this.employeePasswordDataGridViewTextBoxColumn.Name = "employeePasswordDataGridViewTextBoxColumn";
+            // 
+            // employeePhoneDataGridViewTextBoxColumn
+            // 
+            this.employeePhoneDataGridViewTextBoxColumn.DataPropertyName = "EmployeePhone";
+            this.employeePhoneDataGridViewTextBoxColumn.HeaderText = "EmployeePhone";
+            this.employeePhoneDataGridViewTextBoxColumn.Name = "employeePhoneDataGridViewTextBoxColumn";
+            // 
+            // employeeAddressDataGridViewTextBoxColumn
+            // 
+            this.employeeAddressDataGridViewTextBoxColumn.DataPropertyName = "EmployeeAddress";
+            this.employeeAddressDataGridViewTextBoxColumn.HeaderText = "EmployeeAddress";
+            this.employeeAddressDataGridViewTextBoxColumn.Name = "employeeAddressDataGridViewTextBoxColumn";
+            // 
+            // employeesBindingSource
+            // 
+            this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
             // 
             // frmQuanLyDonHang
             // 
@@ -241,6 +261,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,12 +271,6 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderDetail_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cus_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cus_address;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cus_phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn order_date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalPrice;
         private System.Windows.Forms.Button btnAddOrder;
         private System.Windows.Forms.Button btnDeleteOrder;
         private System.Windows.Forms.Button btnUpdateOrder;
@@ -265,8 +280,16 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem QuanLyDonHangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quanLyDonHang;
         private System.Windows.Forms.ToolStripMenuItem quanLyNhanVien_Menu;
         private System.Windows.Forms.ToolStripMenuItem xemHangTraLai;
+        private System.Windows.Forms.BindingSource employeesBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeRoleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeUsernameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeePasswordDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeePhoneDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn employeeAddressDataGridViewTextBoxColumn;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clothing_shop.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -28,7 +29,10 @@ namespace Clothing_shop
 
         private void frmQuanLyDonHang_Load(object sender, EventArgs e)
         {
-            quanLyNhanVien_Menu.Visible = false;
+            quanLyNhanVien_Menu.Visible = true;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase)){
+                quanLyNhanVien_Menu.Visible=false;
+            }
         }
 
       
@@ -46,6 +50,11 @@ namespace Clothing_shop
             Thread thread = new Thread(new ThreadStart(show.showFormHangBiTraLai));
             thread.Start();
             this.Close();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

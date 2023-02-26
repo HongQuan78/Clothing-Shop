@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Clothing_shop.DAO
 {
@@ -31,9 +32,9 @@ namespace Clothing_shop.DAO
                             employee.EmployeeName = reader.GetString(1);
                             employee.EmployeeRole = reader.GetString(2);
                             employee.EmployeeUsername = reader.GetString(3);
-                            employee.EmployeePhone = reader.GetString(4);
-                            employee.EmployeeAddress = reader.GetString(5);
-
+                            employee.EmployeePassword = reader.GetString(4);
+                            employee.EmployeePhone = reader.GetString(5);
+                            employee.EmployeeAddress = reader.GetString(6);
                             employees.Add(employee);
                         }
                     }
@@ -121,14 +122,43 @@ namespace Clothing_shop.DAO
                             employee.EmployeeName = reader.GetString(1);
                             employee.EmployeeRole = reader.GetString(2);
                             employee.EmployeeUsername = reader.GetString(3);
-                            employee.EmployeePhone = reader.GetString(4);
-                            employee.EmployeeAddress = reader.GetString(5);
+                            employee.EmployeePassword = reader.GetString(4);
+                            employee.EmployeePhone = reader.GetString(5);
+                            employee.EmployeeAddress = reader.GetString(6);
                         }
                     }
                 }
             }
             return employee;
         }
-
+        public Employees GetEmployeesByID(int employeeID)
+        {
+            Employees employee = null;
+            using (connection = new DBConnect().getConnection())
+            {
+                string sql = "select * from dbo.Employees " +
+                    "where EmployeeID = @EmployeeID";
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            employee = new Employees();
+                            employee.EmployeeID = reader.GetInt32(0);
+                            employee.EmployeeName = reader.GetString(1);
+                            employee.EmployeeRole = reader.GetString(2);
+                            employee.EmployeeUsername = reader.GetString(3);
+                            employee.EmployeePassword = reader.GetString(4);
+                            employee.EmployeePhone = reader.GetString(5);
+                            employee.EmployeeAddress = reader.GetString(6);
+                        }
+                    }
+                }
+            }
+            return employee;
+        }
     }
 }

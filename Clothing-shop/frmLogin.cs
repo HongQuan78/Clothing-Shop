@@ -10,11 +10,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Clothing_shop
 {
     public partial class frmLogin : Form
     {
+        public static Employees employeeLogin = new Employees();
         public frmLogin()
         {
             InitializeComponent();
@@ -28,15 +30,16 @@ namespace Clothing_shop
             Employees employees = employeesDAO.checkLogin(username, password);
             if (employees == null)
             {
-                MessageBox.Show("Null òi má ơi");
+                MessageBox.Show("Sai mật khẩu hoặc tài khoản!");
             }
             else
             {
-                MessageBox.Show("Oke gòi á má");
+                employeeLogin = employees;
+                Thread thread = new Thread(new ThreadStart(showFormQuanLyDonHang));
+                thread.Start();
+                this.Close();
             }
-            //Thread thread = new Thread(new ThreadStart(showFormQuanLyDonHang));
-            //thread.Start();
-            //this.Close();
+
         }
 
         private void showFormQuanLyDonHang()
