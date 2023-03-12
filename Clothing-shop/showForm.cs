@@ -32,5 +32,13 @@ namespace Clothing_shop
         {
             new frmHangBiTraLai().ShowDialog();
         }
+        public void showChonKhachHang()
+        {
+            new ChonKhachHang().ShowDialog();
+        }
+        public void showAddOrderDetail()
+        {
+            new AddOrderDeatail().ShowDialog();
+        }
     }
 }

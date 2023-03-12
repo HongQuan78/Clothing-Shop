@@ -12,6 +12,20 @@ BEGIN
     INNER JOIN inserted i ON Inventory.ProductID = i.ProductID
 END
 
+CREATE TRIGGER [dbo].[CalculateTotalAmount] ON [dbo].[OrderItems]
+AFTER INSERT
+AS
+BEGIN
+    DECLARE @OrderID INT
+    SET @OrderID = (SELECT OrderID FROM inserted)
+    
+    UPDATE Orders
+    SET TotalAmount = (SELECT SUM(ProductPrice * OrderItems_Quantity)
+                       FROM OrderItems
+                       JOIN Products ON OrderItems.ProductID = Products.ProductID
+                       WHERE OrderItems.OrderID = @OrderID)
+    WHERE OrderID = @OrderID
+END
 
 CREATE TABLE Employees (
     EmployeeID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -146,3 +160,6 @@ VALUES
 (4, 2, 1),
 (4, 3, 3),
 (5, 5, 1);
+
+select * from dbo.Employees
+select * from dbo.Orders

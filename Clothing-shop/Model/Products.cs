@@ -12,8 +12,8 @@ namespace Clothing_shop.Model
         public String ProductName { get; set; }
         public String ProductDescription { get; set; }
         public double ProductPrice { get; set; }
-        public String CategoryID { get; set; }
-        public Products(int productID, String productName, String productDescription, double productPrice, String categoryID)
+        public int CategoryID { get; set; }
+        public Products(int productID, String productName, String productDescription, double productPrice, int categoryID)
         {
             ProductID = productID;
             ProductName = productName;

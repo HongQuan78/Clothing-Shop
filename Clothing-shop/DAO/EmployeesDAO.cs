@@ -16,7 +16,6 @@ namespace Clothing_shop.DAO
         public List<Employees> GetAllEmployees()
         {
             List<Employees> employees = new List<Employees>();
-            connection = new DBConnect().getConnection();
             string sql = "SELECT * FROM Employees";
             using (connection = new DBConnect().getConnection())
             {
@@ -59,7 +58,7 @@ namespace Clothing_shop.DAO
                     command.Parameters.AddWithValue("@EmployeePassword", employee.EmployeePassword);
                     command.Parameters.AddWithValue("@EmployeePhone", employee.EmployeePhone);
                     command.Parameters.AddWithValue("@EmployeeAddress", employee.EmployeeAddress);
-                    command.Parameters.AddWithValue("@EmployeeAddress", employee.EmployeeBirthDay);
+                    command.Parameters.AddWithValue("@EmployeeBirthDay", employee.EmployeeBirthDay);
                     command.ExecuteNonQuery();
                 }
             }
@@ -165,5 +164,59 @@ namespace Clothing_shop.DAO
             }
             return employee;
         }
+
+        public int getID()
+        {
+            int id = 0;
+            using (connection = new DBConnect().getConnection())
+            {
+                string sql = "select max(EmployeeID) from Employees";
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            id = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return id+1;
+            
+        }
+
+        public List<Employees> SearchEmployeesByName(string employeeName)
+        {
+            List<Employees> employees = new List<Employees>();
+            using (connection = new DBConnect().getConnection())
+            {
+                string sql = "SELECT * FROM Employees WHERE EmployeeName LIKE '%' + @EmployeeName + '%'";
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeName", employeeName);
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Employees employee = new Employees();
+                            employee.EmployeeID = reader.GetInt32(0);
+                            employee.EmployeeName = reader.GetString(1);
+                            employee.EmployeeRole = reader.GetString(2);
+                            employee.EmployeeUsername = reader.GetString(3);
+                            employee.EmployeePassword = reader.GetString(4);
+                            employee.EmployeePhone = reader.GetString(5);
+                            employee.EmployeeAddress = reader.GetString(6);
+                            employee.EmployeeBirthDay = reader.GetDateTime(7);
+                            employees.Add(employee);
+                        }
+                    }
+                }
+            }
+            return employees;
+        }
+
     }
 }

@@ -15,6 +15,17 @@ namespace Clothing_shop.DBConnection
         public double TotalAmount { get; set; }
         public string Status { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public Orders()
+        {
+
+        }
+        public Orders(int customerID, int employeeID, double totalAmount)
+        {
+            CustomerID = customerID;
+            EmployeeID = employeeID;
+            TotalAmount = totalAmount;
+        }
+
         public Orders(int orderID, int customerID, int employeeID, DateTime orderDate, double totalAmount, string status, DateTime modifiedDate)
         {
             OrderID = orderID;

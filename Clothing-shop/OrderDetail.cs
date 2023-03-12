@@ -1,6 +1,4 @@
-﻿using Clothing_shop.DAO;
-using System;
-using System.CodeDom;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,24 +11,16 @@ using System.Windows.Forms;
 
 namespace Clothing_shop
 {
-    public partial class frmQuanLySanPham : Form
-    {   
-        private ProductsDAO productsDAO=new ProductsDAO();
-        public frmQuanLySanPham()
+    public partial class OrderDetail : Form
+    {
+        public OrderDetail()
         {
             InitializeComponent();
         }
 
-        private void frmQuanLySanPham_Load(object sender, EventArgs e)
+        private void OrderDetail_Load(object sender, EventArgs e)
         {
 
-        }
-
-        public void displayProduct()
-        {
-            var products = productsDAO.GetAllProducts();
-            dataGridView1.DataSource = products;
-            dataGridView1.AutoGenerateColumns= true;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
