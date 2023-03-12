@@ -37,7 +37,7 @@ namespace Clothing_shop.DAO
                         order.CustomerID = reader.GetInt32(1);
                         order.EmployeeID = reader.GetInt32(2);
                         order.OrderDate = reader.GetDateTime(3);
-                        order.TotalAmount = reader.GetDouble(4);
+                        order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
                         order.Status = reader.GetString(5);
                         order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
 
@@ -75,7 +75,7 @@ namespace Clothing_shop.DAO
                     order.CustomerID = reader.GetInt32(1);
                     order.EmployeeID = reader.GetInt32(2);
                     order.OrderDate = reader.GetDateTime(3);
-                    order.TotalAmount = reader.GetDouble(4);
+                    order.TotalAmount = reader.IsDBNull(4)? 0 : reader.GetDouble(4);
                     order.Status = reader.GetString(5);
                     order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
                 }
@@ -177,7 +177,7 @@ namespace Clothing_shop.DAO
                         order.CustomerID = reader.GetInt32(1);
                         order.EmployeeID = reader.GetInt32(2);
                         order.OrderDate = reader.GetDateTime(3);
-                        order.TotalAmount = reader.GetDouble(4);
+                        order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
                         order.Status = reader.GetString(5);
                         order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
 

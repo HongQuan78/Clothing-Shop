@@ -21,8 +21,8 @@ namespace Clothing_shop.DAO
             using ( connection = new DBConnect().getConnection())
             {
                 connection.Open();
-                SqlCommand command = new SqlCommand("INSERT INTO Categories (CategoryID, CategoryName, CategoryDescription) VALUES (@CategoryID, @CategoryName, @CategoryDescription)", connection);
-                command.Parameters.AddWithValue("@CategoryID", category.CategoryID);
+                SqlCommand command = new SqlCommand("INSERT INTO Categories (CategoryName, CategoryDescription) VALUES (@CategoryName, @CategoryDescription)", connection);
+               
                 command.Parameters.AddWithValue("@CategoryName", category.CategoryName);
                 command.Parameters.AddWithValue("@CategoryDescription", category.CategoryDescription);
                 command.ExecuteNonQuery();

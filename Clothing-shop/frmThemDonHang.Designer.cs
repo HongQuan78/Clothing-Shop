@@ -53,6 +53,7 @@
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteOrderItems = new System.Windows.Forms.Button();
+            this.btnDone = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.OrderView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +124,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(192, 321);
+            this.button1.Location = new System.Drawing.Point(122, 294);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 23);
             this.button1.TabIndex = 12;
@@ -133,7 +134,7 @@
             // 
             // chooseCustomer
             // 
-            this.chooseCustomer.Location = new System.Drawing.Point(320, 321);
+            this.chooseCustomer.Location = new System.Drawing.Point(250, 294);
             this.chooseCustomer.Name = "chooseCustomer";
             this.chooseCustomer.Size = new System.Drawing.Size(114, 23);
             this.chooseCustomer.TabIndex = 13;
@@ -143,7 +144,7 @@
             // 
             // addOrderItems
             // 
-            this.addOrderItems.Location = new System.Drawing.Point(460, 321);
+            this.addOrderItems.Location = new System.Drawing.Point(390, 294);
             this.addOrderItems.Name = "addOrderItems";
             this.addOrderItems.Size = new System.Drawing.Size(110, 23);
             this.addOrderItems.TabIndex = 15;
@@ -269,7 +270,7 @@
             // 
             // btnDeleteOrderItems
             // 
-            this.btnDeleteOrderItems.Location = new System.Drawing.Point(620, 321);
+            this.btnDeleteOrderItems.Location = new System.Drawing.Point(530, 294);
             this.btnDeleteOrderItems.Name = "btnDeleteOrderItems";
             this.btnDeleteOrderItems.Size = new System.Drawing.Size(109, 23);
             this.btnDeleteOrderItems.TabIndex = 22;
@@ -277,11 +278,22 @@
             this.btnDeleteOrderItems.UseVisualStyleBackColor = true;
             this.btnDeleteOrderItems.Click += new System.EventHandler(this.btnDeleteOrderItems_Click);
             // 
+            // btnDone
+            // 
+            this.btnDone.Location = new System.Drawing.Point(671, 294);
+            this.btnDone.Name = "btnDone";
+            this.btnDone.Size = new System.Drawing.Size(109, 23);
+            this.btnDone.TabIndex = 23;
+            this.btnDone.Text = "Xong";
+            this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
+            // 
             // frmThemDonHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(808, 552);
+            this.Controls.Add(this.btnDone);
             this.Controls.Add(this.btnDeleteOrderItems);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.txtTotalAmount);
@@ -339,5 +351,6 @@
         private System.Windows.Forms.ToolStripMenuItem xemKhachHangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quanLySanPhamToolStripMenuItem;
         private System.Windows.Forms.Button btnDeleteOrderItems;
+        private System.Windows.Forms.Button btnDone;
     }
 }

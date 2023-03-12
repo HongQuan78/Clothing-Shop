@@ -34,15 +34,19 @@ namespace Clothing_shop
             }
             txtAmount.Maximum = int.MaxValue;
             CategoryDAO categoryDAO = new CategoryDAO();
-            var comboBox = categoryDAO.GetAllCategories();
-            categoryBox.DataSource = comboBox;
-            categoryBox.DisplayMember = "CategoryName";
-            categoryBox.ValueMember = "CategoryID";
+            fillComboBox();
             displayProduct();
 
 
         }
-
+        public void fillComboBox()
+        {
+            CategoryDAO categoryDAO = new CategoryDAO();
+            var comboBox = categoryDAO.GetAllCategories();
+            categoryBox.DataSource = comboBox;
+            categoryBox.DisplayMember = "CategoryName";
+            categoryBox.ValueMember = "CategoryID";
+        }
         public void displayProduct()
         {
             var products = productsDAO.GetAllProductsCate();
@@ -202,6 +206,17 @@ namespace Clothing_shop
                 MessageBox.Show("Sửa thành công");
                 displayProduct();
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AddCategory add = new AddCategory();
+            add.ShowDialog();
+        }
+
+        private void categoryBox_DropDown(object sender, EventArgs e)
+        {
+            fillComboBox();
         }
     }
 }

@@ -215,5 +215,14 @@ namespace Clothing_shop
             }
 
         }
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showFormQuanLyDonHang);
+
+            thread.Start();
+            this.Close();
+        }
     }
 }

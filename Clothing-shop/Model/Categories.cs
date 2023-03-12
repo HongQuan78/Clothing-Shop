@@ -11,6 +11,10 @@ namespace Clothing_shop.Model
         public int CategoryID { get; set; }
         public String CategoryName { get; set; }
         public String CategoryDescription { get; set; }
+        public Categories()
+        {
+
+        }
         public Categories(int categoryID, string categoryName, string categoryDescription)
         {
             CategoryID = categoryID;
