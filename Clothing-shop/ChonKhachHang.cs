@@ -26,6 +26,11 @@ namespace Clothing_shop
         private void ChonKhachHang_Load(object sender, EventArgs e)
         {
             displayCustomer();
+            quanLyNhanVien_Menu.Visible = true;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
+            {
+                quanLyNhanVien_Menu.Visible = false;
+            }
         }
         public void displayCustomer()
         {
@@ -107,6 +112,7 @@ namespace Clothing_shop
 
         private void button3_Click(object sender, EventArgs e)
         {
+            frmThemDonHang.orderID = -1;
             showForm show = new showForm();
             Thread thread = new Thread(show.showFormThemDonHang);
             thread.Start();
@@ -146,6 +152,14 @@ namespace Clothing_shop
         {
             showForm show = new showForm();
             Thread thread = new Thread(show.showFormThemDonHang);
+            thread.Start();
+            this.Close();
+        }
+
+        private void quanLySanPhamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showQuanLySanPham);
             thread.Start();
             this.Close();
         }

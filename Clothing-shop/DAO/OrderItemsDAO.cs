@@ -90,11 +90,55 @@ namespace Clothing_shop.DAO
                     {
                         while (reader.Read())
                         {
-                            int OrderID = (int)reader["OrderID"];
-                            int ProductID = (int)reader["ProductID"];
-                            int OrderItems_Quantity = (int)reader["OrderItems_Quantity"];
-                            string ProductName = (string)reader["ProductName"];
-                            orderItems.Add(new OrderItems(OrderID, ProductID, OrderItems_Quantity, ProductName));
+                            OrderItems Items = new OrderItems
+                            {
+                                OrderID = (int)reader["OrderID"],
+                                ProductID = (int)reader["ProductID"],
+                                ProductName = (string)reader["ProductName"],
+                                ProductDescription = (string)reader["ProductDescription"],
+                                Price = (double)reader["ProductPrice"],
+                                OrderItems_Quantity = (int)reader["OrderItems_Quantity"],
+                            };
+                            orderItems.Add(Items);
+                        };
+                    }
+                    return orderItems;
+                }
+
+            }
+
+
+        }
+        public List<OrderItems> getInvoice(int orderID)
+        {
+            List<OrderItems> orderItems = new List<OrderItems>();
+
+            using (connection = new DBConnect().getConnection())
+            {
+                string sql = "select OrderID, Products.ProductID, ProductName, ProductDescription, ProductPrice, OrderItems_Quantity from dbo.OrderItems inner join Products " +
+                    "on OrderItems.ProductID = Products.ProductID where OrderID = @OrderID";
+
+                using (SqlCommand command = new SqlCommand(sql, connection))
+                {
+                    command.Parameters.AddWithValue("@OrderID", orderID);
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            OrderItems Items = new OrderItems
+                            {
+                                OrderID = (int)reader["OrderID"],
+                                ProductID = (int)reader["ProductID"],
+                                ProductName = (string)reader["ProductName"],
+                                ProductDescription = (string)reader["ProductDescription"],
+                                Price = (double)reader["ProductPrice"],
+                                OrderItems_Quantity = (int)reader["OrderItems_Quantity"],
+
+                            };
+                            orderItems.Add(Items);
                         }
                     }
                 }

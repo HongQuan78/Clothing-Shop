@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using Clothing_shop.DBConnection;
 using Clothing_shop.Model;
 
 namespace Clothing_shop.DAO
 {
     public class CategoryDAO
     {
-        private readonly string connectionString;
+        private SqlConnection connection;
 
-        public CategoryDAO(string connectionString)
+        public CategoryDAO()
         {
-            this.connectionString = connectionString;
         }
 
         // Create a new category in the database
         public void CreateCategory(Categories category)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using ( connection = new DBConnect().getConnection())
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("INSERT INTO Categories (CategoryID, CategoryName, CategoryDescription) VALUES (@CategoryID, @CategoryName, @CategoryDescription)", connection);
@@ -33,7 +33,7 @@ namespace Clothing_shop.DAO
         public List<Categories> GetAllCategories()
         {
             List<Categories> categories = new List<Categories>();
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (connection = new DBConnect().getConnection())
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT CategoryID, CategoryName, CategoryDescription FROM Categories", connection);
@@ -50,7 +50,7 @@ namespace Clothing_shop.DAO
         // Read a category from the database by category ID
         public Categories GetCategoryById(int categoryId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (connection = new DBConnect().getConnection())
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT CategoryID, CategoryName, CategoryDescription FROM Categories WHERE CategoryID = @CategoryID", connection);
@@ -68,7 +68,7 @@ namespace Clothing_shop.DAO
         // Update a category in the database
         public void UpdateCategory(Categories category)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (connection = new DBConnect().getConnection())
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("UPDATE Categories SET CategoryName = @CategoryName, CategoryDescription = @CategoryDescription WHERE CategoryID = @CategoryID", connection);
@@ -82,7 +82,7 @@ namespace Clothing_shop.DAO
         // Delete a category from the database by category ID
         public void DeleteCategory(int categoryId)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (connection = new DBConnect().getConnection())
             {
                 connection.Open();
                 SqlCommand command = new SqlCommand("DELETE FROM Categories WHERE CategoryID = @CategoryID", connection);

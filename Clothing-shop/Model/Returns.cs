@@ -10,7 +10,11 @@ namespace Clothing_shop.Model
     {
         public int ReturnID { get; set; }
         public int OrderID { get; set; }
-        public String Reason { get; set; }
+        public string Reason { get; set; }
+        public Returns()
+        {
+
+        }
         public Returns(int returnID, int orderID, string reason)
         {
             ReturnID = returnID;

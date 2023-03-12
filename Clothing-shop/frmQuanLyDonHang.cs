@@ -1,4 +1,5 @@
 ﻿using Clothing_shop.DAO;
+using Clothing_shop.DBConnection;
 using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Clothing_shop
 {
     public partial class frmQuanLyDonHang : Form
     {
-        private int orderID = -1;
+        public static int orderID = -1;
         private OrderDAO ordersDAO = new OrderDAO();
         public frmQuanLyDonHang()
         {
@@ -34,8 +35,9 @@ namespace Clothing_shop
         {
             displayOrder();
             quanLyNhanVien_Menu.Visible = true;
-            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase)){
-                quanLyNhanVien_Menu.Visible=false;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
+            {
+                quanLyNhanVien_Menu.Visible = false;
             }
         }
         public void displayOrder()
@@ -44,8 +46,10 @@ namespace Clothing_shop
             DataTable dt = new DataTable();
             viewOrders.DataSource = orders;
             viewOrders.AutoGenerateColumns = true;
+            viewOrders.Refresh();
+
         }
-      
+
         private void btnAddOrder_Click(object sender, EventArgs e)
         {
             showForm show = new showForm();
@@ -95,7 +99,22 @@ namespace Clothing_shop
 
         private void btnDeleteOrder_Click(object sender, EventArgs e)
         {
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Xóa đơn hàng này?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    ordersDAO.DeleteOrder(orderID);
+                    MessageBox.Show("Xóa thành công");
+                    displayOrder();
+                }
+            }
+            catch (Exception)
+            {
 
+                MessageBox.Show("Không thể xóa");
+            }
+            
         }
 
         private void viewOrders_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -107,5 +126,45 @@ namespace Clothing_shop
                 orderID = int.Parse(viewOrders.Rows[numrow].Cells[0].Value.ToString());
             }
         }
+
+        private void quanLySanPhamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showQuanLySanPham);
+            thread.Start();
+            this.Close();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string search = txtSearchBox.Text;
+            var orders = ordersDAO.SearchOrder(search);
+            viewOrders.DataSource = orders;
+            viewOrders.AutoGenerateColumns = true;
+        }
+
+        private void btnShow_Click(object sender, EventArgs e)
+        {
+            displayOrder();
+        }
+
+        private void viewOrders_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int numrow;
+            numrow = e.RowIndex;
+            if (numrow >= 0)
+            {
+                orderID = int.Parse(viewOrders.Rows[numrow].Cells[0].Value.ToString());
+                Thread thread = new Thread(showOrderDetail);
+                thread.Start();
+                this.Close();
+
+            }
+        }
+        public void showOrderDetail()
+        {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.ShowDialog();
+    }
     }
 }

@@ -3,148 +3,149 @@ using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
 
-namespace Clothing_shop.DAO
+public class ProductDAO
 {
-    public class ProductsDAO
+    private SqlConnection connection;
+
+    public ProductDAO()
     {
-        private SqlConnection connection;
+    }
 
-        public ProductsDAO()
+    public List<Products> GetAllProducts()
+    {
+        List<Products> products = new List<Products>();
+        using ( connection = new DBConnect().getConnection())
         {
-           
-        }
-
-        public List<Model.Products> GetAllProducts()
-        {
-            List<Model.Products> products = new List<Model.Products>();
-
-            using (SqlConnection connection = new DBConnect().getConnection())
+            string query = "SELECT * FROM Products";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                string query = "SELECT ProductID, ProductName, ProductDescription, ProductPrice, CategoryID FROM Products";
-
-                SqlCommand command = new SqlCommand(query, connection);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                Products product = new Products
                 {
-                    int productId = reader.GetInt32(0);
-                    string productName = reader.GetString(1);
-                    string productDescription = reader.GetString(2);
-                    double productPrice = reader.GetDouble(3);
-                    int categoryId = reader.GetInt32(4);
-
-                    Model.Products product = new Model.Products(productId, productName, productDescription, productPrice, categoryId);
-                    products.Add(product);
-                }
-
-                reader.Close();
+                    ProductID = (int)reader["ProductID"],
+                    ProductName = (string)reader["ProductName"],
+                    ProductDescription = (string)reader["ProductDescription"] ,
+                    ProductPrice = (double)reader["ProductPrice"],
+                    CategoryID = (int)reader["CategoryID"],
+                    InventoryQuantity = (int)reader["InventoryQuantity"]
+                };
+                products.Add(product);
             }
-
-            return products;
         }
+        return products;
+    }
 
-        public Model.Products GetProductById(int productId)
+
+    public List<Products> GetAllProductsCate()
+    {
+        List<Products> products = new List<Products>();
+        using (connection = new DBConnect().getConnection())
         {
-            Model.Products product = null;
-
-            using (SqlConnection connection = new DBConnect().getConnection())
+            string query = "select Products.ProductID, Products.ProductName, Products.ProductDescription," +
+                " Products.ProductPrice, Categories.CategoryID, Categories.CategoryName, Products.InventoryQuantity " +
+                "from Products inner join Categories " +
+                "on Products.CategoryID = Categories.CategoryID";
+            SqlCommand command = new SqlCommand(query, connection);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                string query = "SELECT ProductName, ProductDescription, ProductPrice, CategoryID FROM Products WHERE ProductID = @ProductId";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ProductId", productId);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                if (reader.Read())
+                Products product = new Products
                 {
-                    string productName = reader.GetString(0);
-                    string productDescription = reader.GetString(1);
-                    double productPrice = reader.GetDouble(2);
-                    int categoryId = reader.GetInt32(3);
-
-                    product = new Model.Products(productId, productName, productDescription, productPrice, categoryId);
-                }
-
-                reader.Close();
+                    ProductID = (int)reader["ProductID"],
+                    ProductName = (string)reader["ProductName"],
+                    ProductDescription = (string)reader["ProductDescription"],
+                    ProductPrice = (double)reader["ProductPrice"],
+                    CategoryID = (int)reader["CategoryID"],
+                    CategoryName = (string)reader["CategoryName"],
+                    InventoryQuantity = (int)reader["InventoryQuantity"]
+                };
+                products.Add(product);
             }
-
-            return product;
         }
+        return products;
+    }
 
-        public List<Model.Products> GetProductsByName(string name)
+
+
+
+    public Products GetProductById(int productId)
+    {
+        using (connection = new DBConnect().getConnection())
         {
-            List<Model.Products> products = new List<Model.Products>();
-
-            using (SqlConnection connection = new DBConnect().getConnection())
+            string query = "SELECT * FROM Products WHERE ProductID = @ProductID";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ProductID", productId);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                string query = "SELECT ProductID, ProductName, ProductDescription, ProductPrice, CategoryID FROM Products WHERE ProductName LIKE '%' + @Name + '%'";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Name", name);
-
-                connection.Open();
-
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                Products product = new Products
                 {
-                    int productId = reader.GetInt32(0);
-                    string productName = reader.GetString(1);
-                    string productDescription = reader.GetString(2);
-                    double productPrice = reader.GetDouble(3);
-                    int categoryId = reader.GetInt32(4);
-
-                    Model.Products product = new Model.Products(productId, productName, productDescription, productPrice, categoryId);
-                    products.Add(product);
-                }
-
-                reader.Close();
+                    ProductID = (int)reader["ProductID"],
+                    ProductName = (string)reader["ProductName"],
+                    ProductDescription = reader["ProductDescription"] == DBNull.Value ? null : (string)reader["ProductDescription"],
+                    ProductPrice = (double)reader["ProductPrice"],
+                    CategoryID = (int)reader["CategoryID"],
+                    InventoryQuantity = (int)reader["InventoryQuantity"]
+                };
+                return product;
             }
-
-            return products;
+            return null;
         }
+    }
 
-        public void AddProduct(Model.Products product)
+    public int AddProduct(Products product)
+    {
+        using (connection = new DBConnect().getConnection())
         {
-            using (SqlConnection connection = new DBConnect().getConnection())
-            {
-                string query = "INSERT INTO Products (ProductName, ProductDescription, ProductPrice, CategoryID) VALUES (@ProductName, @ProductDescription, @ProductPrice, @CategoryID)";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@ProductName", product.ProductName);
-                command.Parameters.AddWithValue("@ProductDescription", product.ProductDescription);
-                command.Parameters.AddWithValue("@ProductPrice", product.ProductPrice);
-                command.Parameters.AddWithValue("@CategoryID", product.CategoryID);
-
-                connection.Open();
-
-                command.ExecuteNonQuery();
-            }
+            string query = "INSERT INTO Products (ProductName, ProductDescription, ProductPrice, CategoryID, InventoryQuantity) " +
+                           "VALUES (@ProductName, @ProductDescription, @ProductPrice, @CategoryID, @InventoryQuantity); " +
+                           "SELECT SCOPE_IDENTITY()";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ProductName", product.ProductName);
+            command.Parameters.AddWithValue("@ProductDescription", product.ProductDescription ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@ProductPrice", product.ProductPrice);
+            command.Parameters.AddWithValue("@CategoryID", product.CategoryID);
+            command.Parameters.AddWithValue("@InventoryQuantity", product.InventoryQuantity);
+            connection.Open();
+            return Convert.ToInt32(command.ExecuteScalar());
         }
+    }
 
-        public void UpdateProduct(Products product)
+    public void UpdateProduct(Products product)
+    {
+        using (connection = new DBConnect().getConnection())
         {
-            using (SqlConnection connection = new DBConnect().getConnection())
-            {
-                SqlCommand command = new SqlCommand("UPDATE Products SET ProductName = @ProductName, ProductDescription = @ProductDescription, ProductPrice = @ProductPrice, CategoryID = @CategoryID WHERE ProductID = @ProductID", connection);
-                command.Parameters.AddWithValue("@ProductName", product.ProductName);
-                command.Parameters.AddWithValue("@ProductDescription", product.ProductDescription);
-                command.Parameters.AddWithValue("@ProductPrice", product.ProductPrice);
-                command.Parameters.AddWithValue("@CategoryID", product.CategoryID);
-                command.Parameters.AddWithValue("@ProductID", product.ProductID);
-
-                connection.Open();
-                command.ExecuteNonQuery();
-            }
+            string query = "UPDATE Products SET ProductName = @ProductName, ProductDescription = @ProductDescription, " +
+                           "ProductPrice = @ProductPrice, CategoryID = @CategoryID, InventoryQuantity = @InventoryQuantity " +
+                           "WHERE ProductID = @ProductID";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ProductID", product.ProductID);
+            command.Parameters.AddWithValue("@ProductName", product.ProductName);
+            command.Parameters.AddWithValue("@ProductDescription", product.ProductDescription ?? (object)DBNull.Value);
+            command.Parameters.AddWithValue("@ProductPrice", product.ProductPrice);
+            command.Parameters.AddWithValue("@CategoryID", product.CategoryID);
+            command.Parameters.AddWithValue("@InventoryQuantity", product.InventoryQuantity);
+            connection.Open();
+            command.ExecuteNonQuery();
+        }
+        
+    }
+    public void DeleteProduct(int productID)
+    {
+        using (connection = new DBConnect().getConnection())
+        {
+            string query = "Delete from Products where ProductID = @ProductID";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@ProductID", productID);
+            connection.Open();
+            command.ExecuteNonQuery();
         }
     }
 }

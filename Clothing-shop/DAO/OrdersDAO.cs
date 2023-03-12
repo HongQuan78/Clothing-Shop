@@ -155,6 +155,61 @@ namespace Clothing_shop.DAO
 
             return highestID;
         }
-        
+        public List<Orders> SearchOrder(string keyword)
+        {
+            List<Orders> orders = new List<Orders>();
+
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT * FROM Orders WHERE OrderID LIKE @keyword OR CustomerID LIKE @keyword OR EmployeeID LIKE @keyword OR Status LIKE @keyword";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@keyword", "%" + keyword + "%");
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Orders order = new Orders();
+                        order.OrderID = reader.GetInt32(0);
+                        order.CustomerID = reader.GetInt32(1);
+                        order.EmployeeID = reader.GetInt32(2);
+                        order.OrderDate = reader.GetDateTime(3);
+                        order.TotalAmount = reader.GetDouble(4);
+                        order.Status = reader.GetString(5);
+                        order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
+
+                        orders.Add(order);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return orders;
+        }
+        public void UpdateOrderStatus(int orderId, string status)
+        {
+            using (connection = new DBConnect().getConnection())
+            {
+                connection.Open();
+
+                string query = "UPDATE Orders SET Status = @status, ModifiedDate = GETDATE() " +
+                    "WHERE OrderID = @orderId";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@status", status);
+                command.Parameters.AddWithValue("@orderId", orderId);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
+
     }
 }

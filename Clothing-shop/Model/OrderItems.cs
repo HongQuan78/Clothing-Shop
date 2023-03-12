@@ -10,8 +10,14 @@ namespace Clothing_shop.Model
     {
         public int OrderID { get; set; }
         public int ProductID { get; set; }
-        public int OrderItems_Quantity { get; set; }
         public string ProductName { get; set; }
+        public string ProductDescription { get; set; }
+        public double Price {  get; set; }
+        public int OrderItems_Quantity { get; set; }
+        public OrderItems()
+        {
+
+        }
         public OrderItems(int orderID, int productID, int orderItems_Quantity)
         {
             OrderID = orderID;

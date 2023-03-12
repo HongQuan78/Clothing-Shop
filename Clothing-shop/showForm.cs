@@ -40,5 +40,10 @@ namespace Clothing_shop
         {
             new AddOrderDeatail().ShowDialog();
         }
+
+        public void showQuanLySanPham()
+        {
+            new frmQuanLySanPham().ShowDialog();
+        }
     }
 }

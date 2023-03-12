@@ -13,6 +13,10 @@ namespace Clothing_shop.Model
 
         public String CustomerPhone { get; set;}
         public String CustomerAddress { get; set;}
+        public Customers()
+        {
+
+        }
         public Customers(int customerID, string customerName, string customerPhone, string customerAddress)
         {
             CustomerID = customerID;

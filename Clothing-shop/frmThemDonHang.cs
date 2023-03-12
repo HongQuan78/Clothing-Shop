@@ -17,13 +17,12 @@ namespace Clothing_shop
 {
     public partial class frmThemDonHang : Form
     {
-        private static List<int> productID = new List<int>();
-        private ProductsDAO productsDAO = new ProductsDAO();
         private OrderDAO order = new OrderDAO();
         private static string customerName = "";
         private static string customerPhone = "";
         private static string customerAddress = "";
         public static int orderID = -1;
+        private int productID = -1;
         public frmThemDonHang()
         {
             InitializeComponent();
@@ -50,36 +49,44 @@ namespace Clothing_shop
 
         private void frmThemDonHang_Load(object sender, EventArgs e)
         {
+            quanLyNhanVien_Menu.Visible = true;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
+            {
+                quanLyNhanVien_Menu.Visible = false;
+            }
+            orderID = AddOrderDeatail.OrderID;
             int cusID = ChonKhachHang.cusID;
+            displayOrders();
+            txtTotalAmount.Text = orderID > -1 ? order.GetOrderById(orderID).TotalAmount.ToString() : "0";
+            txtName.Text = "";
+            txtPhone.Text = "";
+            txtAddress.Text = "";
             if (cusID >= 0)
             {
                 Customers customers = new CustomerDAO().GetCustomerById(cusID);
                 txtName.Text = customers.CustomerName;
                 txtPhone.Text = customers.CustomerPhone;
                 txtAddress.Text = customers.CustomerAddress;
+                txtTotalAmount.Text = orderID > -1 ? order.GetOrderById(orderID).TotalAmount.ToString() : "0";
             }
-            else
-            {
-                txtName.Text = "";
-                txtPhone.Text = "";
-                txtAddress.Text = "";
-            }
-            //displayOrders();
+
+             
         }
 
         public void displayOrders()
         {
-            if (orderID >= 0)
+            txtTotalAmount.Text = orderID > -1 ? order.GetOrderById(orderID).TotalAmount.ToString() : "0";
+            OrderView.DataSource = null; // clear the data source of the DataGridView
+            if (orderID > -1)
             {
                 var OrderDetailList = new OrderItemsDAO().GetOrderItemsByOrderID(orderID);
                 OrderView.DataSource = OrderDetailList;
                 OrderView.AutoGenerateColumns = true;
             }
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
+            orderID = -1;
             customerName = txtName.Text;
             customerPhone = txtPhone.Text;
             customerAddress = txtAddress.Text;
@@ -91,7 +98,7 @@ namespace Clothing_shop
             {
                 int cusID = ChonKhachHang.cusID;
                 int empID = frmLogin.employeeLogin.EmployeeID;
-                txtTotalAmount.Text = "0";
+                txtTotalAmount.Text = orderID > -1 ? order.GetOrderById(orderID).TotalAmount.ToString() : "0";
                 Orders orderAdd = new Orders(cusID, empID, double.Parse(txtTotalAmount.Text));
                 orderID = order.AddOrder(orderAdd);
                 MessageBox.Show("Thêm khách hàng thành công");
@@ -106,7 +113,9 @@ namespace Clothing_shop
         }
 
         private void chooseCustomer_Click(object sender, EventArgs e)
-        {
+        {   
+            orderID = -1;
+            displayOrders();
             showForm show = new showForm();
             Thread thread = new Thread(show.showChonKhachHang);
             thread.Start();
@@ -120,6 +129,7 @@ namespace Clothing_shop
             Thread thread = new Thread(new ThreadStart(show.showAddOrderDetail));
             thread.Start();
             this.Close();
+
         }
 
         private void quanLyDonHang_Click(object sender, EventArgs e)
@@ -152,6 +162,58 @@ namespace Clothing_shop
             Thread thread = new Thread(show.showChonKhachHang);
             thread.Start();
             this.Close();
+        }
+
+        private void quanLySanPhamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showQuanLySanPham);
+            thread.Start();
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            orderID = -1;
+            txtAddress.Text = "";
+            txtName.Text = "";
+            txtPhone.Text = "";
+            txtTotalAmount.Text = "";
+            displayOrders();
+
+        }
+
+        private void btnDeleteOrderItems_Click(object sender, EventArgs e)
+        {
+                OrderItemsDAO orderItemsDAO = new OrderItemsDAO();
+            try
+            {
+                DialogResult dialogResult = MessageBox.Show("Xóa sản phẩm này?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {   
+
+                    orderItemsDAO.DeleteOrderItem(orderID, productID);
+                    MessageBox.Show("Xóa thành công");
+                    displayOrders();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+                MessageBox.Show("Không thể xóa");
+            }
+        }
+
+        private void OrderView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int numrow;
+            numrow = e.RowIndex;
+            if (numrow >= 0)
+            {
+                productID = int.Parse(OrderView.Rows[numrow].Cells[1].Value.ToString());
+
+            }
+
         }
     }
 }

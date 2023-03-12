@@ -30,7 +30,12 @@ namespace Clothing_shop
         }
 
         private void frmQuanLyNhanVien_Load(object sender, EventArgs e)
-        {   
+        {
+            quanLyNhanVien_Menu.Visible = true;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
+            {
+                quanLyNhanVien_Menu.Visible = false;
+            }
             displayListEmployee();
         }
 
@@ -190,6 +195,14 @@ namespace Clothing_shop
         {
             showForm show = new showForm();
             Thread thread = new Thread(show.showChonKhachHang);
+            thread.Start();
+            this.Close();
+        }
+
+        private void quanLySanPhamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showQuanLySanPham);
             thread.Start();
             this.Close();
         }

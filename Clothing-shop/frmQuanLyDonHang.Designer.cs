@@ -41,9 +41,12 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyDonHang = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyNhanVien_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.quanLySanPhamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.btnShow = new System.Windows.Forms.Button();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.viewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -59,6 +62,7 @@
             this.viewOrders.TabIndex = 0;
             this.viewOrders.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.viewOrders_CellClick);
             this.viewOrders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.viewOrders.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.viewOrders_CellDoubleClick);
             // 
             // label1
             // 
@@ -73,10 +77,10 @@
             // btnAddOrder
             // 
             this.btnAddOrder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAddOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddOrder.Location = new System.Drawing.Point(41, 147);
+            this.btnAddOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddOrder.Location = new System.Drawing.Point(335, 155);
             this.btnAddOrder.Name = "btnAddOrder";
-            this.btnAddOrder.Size = new System.Drawing.Size(184, 35);
+            this.btnAddOrder.Size = new System.Drawing.Size(102, 35);
             this.btnAddOrder.TabIndex = 2;
             this.btnAddOrder.Text = "Thêm";
             this.btnAddOrder.UseVisualStyleBackColor = true;
@@ -85,10 +89,10 @@
             // btnDeleteOrder
             // 
             this.btnDeleteOrder.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteOrder.Location = new System.Drawing.Point(268, 147);
+            this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteOrder.Location = new System.Drawing.Point(456, 155);
             this.btnDeleteOrder.Name = "btnDeleteOrder";
-            this.btnDeleteOrder.Size = new System.Drawing.Size(184, 35);
+            this.btnDeleteOrder.Size = new System.Drawing.Size(102, 35);
             this.btnDeleteOrder.TabIndex = 3;
             this.btnDeleteOrder.Text = "Xóa";
             this.btnDeleteOrder.UseVisualStyleBackColor = true;
@@ -96,16 +100,16 @@
             // 
             // txtSearchBox
             // 
-            this.txtSearchBox.Location = new System.Drawing.Point(133, 90);
+            this.txtSearchBox.Location = new System.Drawing.Point(314, 100);
             this.txtSearchBox.Name = "txtSearchBox";
-            this.txtSearchBox.Size = new System.Drawing.Size(240, 20);
+            this.txtSearchBox.Size = new System.Drawing.Size(193, 20);
             this.txtSearchBox.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(37, 86);
+            this.label2.Location = new System.Drawing.Point(218, 96);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 24);
             this.label2.TabIndex = 6;
@@ -142,6 +146,7 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.quanLyDonHang,
             this.quanLyNhanVien_Menu,
+            this.quanLySanPhamToolStripMenuItem,
             this.xemHangTraLai,
             this.theemToolStripMenuItem,
             this.xemKhachHangToolStripMenuItem});
@@ -162,6 +167,13 @@
             this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(170, 22);
             this.quanLyNhanVien_Menu.Text = "Quản lý nhân viên";
             this.quanLyNhanVien_Menu.Click += new System.EventHandler(this.quanLyNhanVien_Menu_Click);
+            // 
+            // quanLySanPhamToolStripMenuItem
+            // 
+            this.quanLySanPhamToolStripMenuItem.Name = "quanLySanPhamToolStripMenuItem";
+            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.quanLySanPhamToolStripMenuItem.Text = "Quản lý sản phẩm";
+            this.quanLySanPhamToolStripMenuItem.Click += new System.EventHandler(this.quanLySanPhamToolStripMenuItem_Click);
             // 
             // xemHangTraLai
             // 
@@ -184,6 +196,28 @@
             this.xemKhachHangToolStripMenuItem.Text = "Xem Khách Hàng";
             this.xemKhachHangToolStripMenuItem.Click += new System.EventHandler(this.xemKhachHangToolStripMenuItem_Click);
             // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(532, 99);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.TabIndex = 8;
+            this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnShow
+            // 
+            this.btnShow.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShow.Location = new System.Drawing.Point(218, 155);
+            this.btnShow.Name = "btnShow";
+            this.btnShow.Size = new System.Drawing.Size(102, 35);
+            this.btnShow.TabIndex = 9;
+            this.btnShow.Text = "Hiển thị";
+            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
+            // 
             // employeesBindingSource
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
@@ -193,6 +227,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnShow);
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtSearchBox);
             this.Controls.Add(this.btnDeleteOrder);
@@ -235,5 +271,8 @@
         private System.Windows.Forms.BindingSource employeesBindingSource;
         private System.Windows.Forms.ToolStripMenuItem theemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xemKhachHangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quanLySanPhamToolStripMenuItem;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnShow;
     }
 }

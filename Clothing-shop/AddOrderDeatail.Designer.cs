@@ -36,7 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btnback = new System.Windows.Forms.Button();
             this.amount = new System.Windows.Forms.NumericUpDown();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,6 +44,7 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyDonHang = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyNhanVien_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.quanLySanPhamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -126,14 +127,15 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnback
             // 
-            this.button2.Location = new System.Drawing.Point(644, 210);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(103, 23);
-            this.button2.TabIndex = 21;
-            this.button2.Text = "Thêm Đơn Hàng";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnback.Location = new System.Drawing.Point(644, 210);
+            this.btnback.Name = "btnback";
+            this.btnback.Size = new System.Drawing.Size(103, 23);
+            this.btnback.TabIndex = 21;
+            this.btnback.Text = "Thêm Đơn Hàng";
+            this.btnback.UseVisualStyleBackColor = true;
+            this.btnback.Click += new System.EventHandler(this.btnback_Click);
             // 
             // amount
             // 
@@ -164,7 +166,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -173,6 +175,7 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.quanLyDonHang,
             this.quanLyNhanVien_Menu,
+            this.quanLySanPhamToolStripMenuItem,
             this.xemHangTraLai,
             this.theemToolStripMenuItem,
             this.xemKhachHangToolStripMenuItem});
@@ -193,6 +196,13 @@
             this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(180, 22);
             this.quanLyNhanVien_Menu.Text = "Quản lý nhân viên";
             this.quanLyNhanVien_Menu.Click += new System.EventHandler(this.quanLyNhanVien_Menu_Click);
+            // 
+            // quanLySanPhamToolStripMenuItem
+            // 
+            this.quanLySanPhamToolStripMenuItem.Name = "quanLySanPhamToolStripMenuItem";
+            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quanLySanPhamToolStripMenuItem.Text = "Quản lý sản phẩm";
+            this.quanLySanPhamToolStripMenuItem.Click += new System.EventHandler(this.quanLySanPhamToolStripMenuItem_Click);
             // 
             // xemHangTraLai
             // 
@@ -222,7 +232,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.amount);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnback);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtPrice);
@@ -231,7 +241,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label);
             this.Controls.Add(this.productsView);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AddOrderDeatail";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý cửa hàng";
             this.Load += new System.EventHandler(this.AddOrderDeatail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productsView)).EndInit();
@@ -252,7 +266,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnback;
         private System.Windows.Forms.NumericUpDown amount;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -263,5 +277,6 @@
         private System.Windows.Forms.ToolStripMenuItem xemHangTraLai;
         private System.Windows.Forms.ToolStripMenuItem theemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xemKhachHangToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quanLySanPhamToolStripMenuItem;
     }
 }

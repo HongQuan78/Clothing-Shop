@@ -17,7 +17,8 @@ namespace Clothing_shop
     public partial class AddOrderDeatail : Form
     {
         private OrderItemsDAO orderItemsDAO = new OrderItemsDAO();
-        private ProductsDAO productsDAO = new ProductsDAO();
+        private ProductDAO productsDAO = new ProductDAO();
+        public static int OrderID = -1;
         private int ProductID = -1;
         public AddOrderDeatail()
         {
@@ -26,18 +27,16 @@ namespace Clothing_shop
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int orderID = frmThemDonHang.orderID;
             int cusID = ChonKhachHang.cusID;
-            if (orderID >= 0 && cusID >= 0)
+            if (OrderID >= 0 && cusID >= 0)
             {
                 if (ProductID >= 0)
                 {
                     int quantity = int.Parse(amount.Text);
-                    int price = int.Parse(txtPrice.Text);
-                    int total = quantity * price;
-                    OrderItems orderItems = new OrderItems(orderID, ProductID, total);
+                    OrderItems orderItems = new OrderItems(OrderID, ProductID, quantity);
                     orderItemsDAO.AddOrderItem(orderItems);
                     MessageBox.Show("Thêm thành công");
+                    displayProduct();
                 }
                 else
                 {
@@ -52,11 +51,16 @@ namespace Clothing_shop
 
         private void AddOrderDeatail_Load(object sender, EventArgs e)
         {
+            OrderID = frmThemDonHang.orderID;
             displayProduct();
+            quanLyNhanVien_Menu.Visible = true;
+            if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
+            {
+                quanLyNhanVien_Menu.Visible = false;
+            }
         }
         public void displayProduct()
         {
-
             var products = productsDAO.GetAllProducts();
             productsView.DataSource = products;
             productsView.AutoGenerateColumns = true;
@@ -116,6 +120,22 @@ namespace Clothing_shop
         {
             showForm show = new showForm();
             Thread thread = new Thread(show.showChonKhachHang);
+            thread.Start();
+            this.Close();
+        }
+
+        private void quanLySanPhamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showQuanLySanPham);
+            thread.Start();
+            this.Close();
+        }
+
+        private void btnback_Click(object sender, EventArgs e)
+        {
+            showForm show = new showForm();
+            Thread thread = new Thread(show.showFormThemDonHang);
             thread.Start();
             this.Close();
         }

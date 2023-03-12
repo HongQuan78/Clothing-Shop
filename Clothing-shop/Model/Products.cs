@@ -13,6 +13,9 @@ namespace Clothing_shop.Model
         public String ProductDescription { get; set; }
         public double ProductPrice { get; set; }
         public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public int InventoryQuantity {  get; set;  }
+
         public Products(int productID, String productName, String productDescription, double productPrice, int categoryID)
         {
             ProductID = productID;
@@ -22,6 +25,20 @@ namespace Clothing_shop.Model
             CategoryID = categoryID;
         }
 
+        public Products(int productID, String productName, String productDescription, double productPrice, int categoryID, string categoryName, int quantity)
+        {
+            ProductID = productID;
+            ProductName = productName;
+            ProductDescription = productDescription;
+            ProductPrice = productPrice;
+            CategoryID = categoryID;
+            CategoryName = categoryName;
+            InventoryQuantity = quantity;
+        }
+        public Products()
+        {
+
+        }
 
     }
 }
