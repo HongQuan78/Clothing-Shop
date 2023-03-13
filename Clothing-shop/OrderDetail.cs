@@ -15,14 +15,17 @@ using System.Windows.Forms;
 namespace Clothing_shop
 {
     public partial class OrderDetail : Form
-    {   
+    {
         private Orders orderDisplay = new Orders();
-        private Employees employees= new Employees();
+        private Employees employees = new Employees();
         private Customers customers = new Customers();
         private int orderID;
-        public OrderDetail()
+        private int returnID;
+        public OrderDetail(int orderid, int returnid)
         {
             InitializeComponent();
+            orderID = orderid;
+            returnID = returnid;
         }
 
         private void OrderDetail_Load(object sender, EventArgs e)
@@ -32,18 +35,18 @@ namespace Clothing_shop
             {
                 quanLyNhanVien_Menu.Visible = false;
             }
-            orderID = frmQuanLyDonHang.orderID;
             OrderDAO orderDAO = new OrderDAO();
 
             orderDisplay = orderDAO.GetOrderById(orderID);
             txtEmpName.Text = new EmployeesDAO().GetEmployeesByID(orderDisplay.EmployeeID).EmployeeName;
-            txtCusname.Text= new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerName;
+            txtCusname.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerName;
             txtTotal.Text = orderDisplay.TotalAmount.ToString();
             cmbStatus.Text = orderDisplay.Status.ToString();
             orderDate.Text = orderDisplay.OrderDate.ToString();
             txtAddress.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerAddress;
             txtPhone.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerPhone;
-            if ( orderDisplay.ModifiedDate != DateTime.MinValue)
+            if (returnID >= 0) { checkBox1.Checked = true; }
+            if (orderDisplay.ModifiedDate != DateTime.MinValue)
             {
                 modifierDate.Text = orderDisplay.ModifiedDate.ToString();
             }
@@ -111,26 +114,31 @@ namespace Clothing_shop
         {
             string status = cmbStatus.Text;
             new OrderDAO().UpdateOrderStatus(orderID, status);
-            showForm show = new showForm();
-            Thread thread = new Thread(show.showFormQuanLyDonHang);
-            thread.Start();
+            if (returnID < 0)
+            {
+                showForm show = new showForm();
+                Thread thread = new Thread(show.showFormQuanLyDonHang);
+                thread.Start();
+            }
             this.Close();
+
+
         }
 
         public void showOrderItems()
         {
             var orderItems = new OrderItemsDAO().GetOrderItemsByOrderID(orderID);
-            
+
         }
 
         private void cmbStatus_ValueMemberChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cmbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
-           
+
         }
         public void displayOrderItems()
         {
@@ -140,17 +148,21 @@ namespace Clothing_shop
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {   
+        {
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-           if(checkBox1.Checked)
+            if (returnID >= 0)
+            {
+                return;
+            }
+            if (checkBox1.Checked)
             {
                 new getReason().ShowDialog();
 
             }
-           string reason = getReason.Reason;
+            string reason = getReason.Reason;
             new ReturnsDAO().Create(new Returns
             {
                 OrderID = orderID,

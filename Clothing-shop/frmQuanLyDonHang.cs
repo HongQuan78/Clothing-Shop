@@ -16,7 +16,7 @@ namespace Clothing_shop
 {
     public partial class frmQuanLyDonHang : Form
     {
-        public static int orderID = -1;
+        public int orderID = -1;
         private OrderDAO ordersDAO = new OrderDAO();
         public frmQuanLyDonHang()
         {
@@ -163,7 +163,7 @@ namespace Clothing_shop
         }
         public void showOrderDetail()
         {
-            OrderDetail orderDetail = new OrderDetail();
+            OrderDetail orderDetail = new OrderDetail(orderID, -1);
             orderDetail.ShowDialog();
     }
     }

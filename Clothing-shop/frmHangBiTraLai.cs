@@ -1,4 +1,5 @@
 ﻿using Clothing_shop.DAO;
+using Clothing_shop.DBConnection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -79,6 +80,20 @@ namespace Clothing_shop
             Thread thread = new Thread(show.showQuanLySanPham);
             thread.Start();
             this.Close();
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int numrow;
+            numrow = e.RowIndex;
+            int orderid = 0;
+            int returnid = 0;
+            if (numrow >= 0)
+            {
+                returnid = int.Parse(dataGridView1.Rows[numrow].Cells[0].Value.ToString());
+                orderid = int.Parse(dataGridView1.Rows[numrow].Cells[1].Value.ToString());
+            }
+            new OrderDetail(orderid, returnid).ShowDialog();
         }
     }
 }
