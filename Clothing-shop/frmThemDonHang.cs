@@ -126,9 +126,10 @@ namespace Clothing_shop
         private void addOrderItems_Click(object sender, EventArgs e)
         {
             showForm show = new showForm();
-            Thread thread = new Thread(new ThreadStart(show.showAddOrderDetail));
-            thread.Start();
-            this.Close();
+            //Thread thread = new Thread(new ThreadStart(show.showAddOrderDetail));
+            //thread.Start();
+            //this.Close();
+            show.showAddOrderDetail();
 
         }
 

@@ -15,7 +15,7 @@ namespace Clothing_shop.DBConnection
         {
 
         }
-        string connectionString = "Server=HongQuan\\SQLEXPRESS;Database=clothing_shop_management;User Id=sa;Password=123456;";
+        string connectionString = "Server=(local);Database=clothing_shop_management;User Id=sa;Password=123456;";
         public SqlConnection getConnection() {
             try
             {

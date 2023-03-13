@@ -44,6 +44,8 @@ namespace Clothing_shop
             orderDate.Text = orderDisplay.OrderDate.ToString();
             txtAddress.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerAddress;
             txtPhone.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerPhone;
+            orderDate.Enabled = false;
+            modifierDate.Enabled= false;
             if (returnID >= 0) { checkBox1.Checked = true; }
             if (orderDisplay.ModifiedDate != DateTime.MinValue)
             {

@@ -134,10 +134,19 @@ namespace Clothing_shop
 
         private void btnback_Click(object sender, EventArgs e)
         {
-            showForm show = new showForm();
-            Thread thread = new Thread(show.showFormThemDonHang);
-            thread.Start();
+            //showForm show = new showForm();
+            //Thread thread = new Thread(show.showFormThemDonHang);
+            //thread.Start();
             this.Close();
+        }
+
+        private void AddOrderDeatail_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmThemDonHang frm = Application.OpenForms.OfType<frmThemDonHang>().FirstOrDefault();
+            if (frm != null)
+            {
+                frm.displayOrders();
+            }
         }
     }
 }

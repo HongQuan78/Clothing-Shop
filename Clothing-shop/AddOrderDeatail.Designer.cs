@@ -123,7 +123,7 @@
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 20;
-            this.btnAdd.Text = "Add";
+            this.btnAdd.Text = "Thêm";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -186,42 +186,42 @@
             // quanLyDonHang
             // 
             this.quanLyDonHang.Name = "quanLyDonHang";
-            this.quanLyDonHang.Size = new System.Drawing.Size(180, 22);
+            this.quanLyDonHang.Size = new System.Drawing.Size(170, 22);
             this.quanLyDonHang.Text = "Quản lý đơn hàng";
             this.quanLyDonHang.Click += new System.EventHandler(this.quanLyDonHang_Click);
             // 
             // quanLyNhanVien_Menu
             // 
             this.quanLyNhanVien_Menu.Name = "quanLyNhanVien_Menu";
-            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(180, 22);
+            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(170, 22);
             this.quanLyNhanVien_Menu.Text = "Quản lý nhân viên";
             this.quanLyNhanVien_Menu.Click += new System.EventHandler(this.quanLyNhanVien_Menu_Click);
             // 
             // quanLySanPhamToolStripMenuItem
             // 
             this.quanLySanPhamToolStripMenuItem.Name = "quanLySanPhamToolStripMenuItem";
-            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.quanLySanPhamToolStripMenuItem.Text = "Quản lý sản phẩm";
             this.quanLySanPhamToolStripMenuItem.Click += new System.EventHandler(this.quanLySanPhamToolStripMenuItem_Click);
             // 
             // xemHangTraLai
             // 
             this.xemHangTraLai.Name = "xemHangTraLai";
-            this.xemHangTraLai.Size = new System.Drawing.Size(180, 22);
+            this.xemHangTraLai.Size = new System.Drawing.Size(170, 22);
             this.xemHangTraLai.Text = "Xem Hàng Trả Lại";
             this.xemHangTraLai.Click += new System.EventHandler(this.xemHangTraLai_Click);
             // 
             // theemToolStripMenuItem
             // 
             this.theemToolStripMenuItem.Name = "theemToolStripMenuItem";
-            this.theemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.theemToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.theemToolStripMenuItem.Text = "Thêm Đơn Hàng";
             this.theemToolStripMenuItem.Click += new System.EventHandler(this.theemToolStripMenuItem_Click);
             // 
             // xemKhachHangToolStripMenuItem
             // 
             this.xemKhachHangToolStripMenuItem.Name = "xemKhachHangToolStripMenuItem";
-            this.xemKhachHangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.xemKhachHangToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.xemKhachHangToolStripMenuItem.Text = "Xem Khách Hàng";
             this.xemKhachHangToolStripMenuItem.Click += new System.EventHandler(this.xemKhachHangToolStripMenuItem_Click);
             // 
@@ -247,6 +247,7 @@
             this.Name = "AddOrderDeatail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý cửa hàng";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AddOrderDeatail_FormClosed);
             this.Load += new System.EventHandler(this.AddOrderDeatail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productsView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.amount)).EndInit();
