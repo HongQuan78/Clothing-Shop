@@ -350,6 +350,7 @@
             this.Name = "OrderDetail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý cửa hàng ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OrderDetail_FormClosed);
             this.Load += new System.EventHandler(this.OrderDetail_Load);
             ((System.ComponentModel.ISupportInitialize)(this.OrderDetailView)).EndInit();
             this.menuStrip1.ResumeLayout(false);

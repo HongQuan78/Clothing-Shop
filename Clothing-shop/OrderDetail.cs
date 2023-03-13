@@ -27,7 +27,6 @@ namespace Clothing_shop
             orderID = orderid;
             returnID = returnid;
         }
-
         private void OrderDetail_Load(object sender, EventArgs e)
         {
             quanLyNhanVien_Menu.Visible = true;
@@ -154,20 +153,33 @@ namespace Clothing_shop
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (returnID >= 0)
-            {
+            {   
+                if(!checkBox1.Checked) {
+                    new ReturnsDAO().Delete(returnID);
+                }
                 return;
             }
             if (checkBox1.Checked)
             {
                 new getReason().ShowDialog();
-
+                string reason = getReason.Reason;
+                new ReturnsDAO().Create(new Returns
+                {
+                    OrderID = orderID,
+                    Reason = reason
+                });
+                return;
             }
-            string reason = getReason.Reason;
-            new ReturnsDAO().Create(new Returns
+           
+        }
+
+        private void OrderDetail_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            frmHangBiTraLai frm = Application.OpenForms.OfType<frmHangBiTraLai>().FirstOrDefault();
+            if (frm != null)
             {
-                OrderID = orderID,
-                Reason = reason
-            });
+                frm.displayReturn();
+            }
         }
     }
 }
