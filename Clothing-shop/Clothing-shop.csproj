@@ -72,6 +72,12 @@
     <Compile Include="AddOrderDeatail.Designer.cs">
       <DependentUpon>AddOrderDeatail.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeleteCate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteCate.Designer.cs">
+      <DependentUpon>DeleteCate.cs</DependentUpon>
+    </Compile>
     <Compile Include="getReason.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ChonKhachHang.resx">
       <DependentUpon>ChonKhachHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteCate.resx">
+      <DependentUpon>DeleteCate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHangBiTraLai.resx">
       <DependentUpon>frmHangBiTraLai.cs</DependentUpon>

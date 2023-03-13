@@ -54,6 +54,7 @@
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.linkDelete = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtAmount)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -291,11 +292,25 @@
             this.linkLabel1.Text = "Thêm phân loại";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // linkDelete
+            // 
+            this.linkDelete.AutoSize = true;
+            this.linkDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkDelete.LinkColor = System.Drawing.Color.Black;
+            this.linkDelete.Location = new System.Drawing.Point(588, 261);
+            this.linkDelete.Name = "linkDelete";
+            this.linkDelete.Size = new System.Drawing.Size(72, 13);
+            this.linkDelete.TabIndex = 21;
+            this.linkDelete.TabStop = true;
+            this.linkDelete.Text = "Xóa phân loại";
+            this.linkDelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkDelete_LinkClicked);
+            // 
             // frmQuanLySanPham
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 544);
+            this.Controls.Add(this.linkDelete);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label6);
@@ -357,5 +372,6 @@
         private System.Windows.Forms.ToolStripMenuItem xemKhachHangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quảnLýSảnPhẩmToolStripMenuItem;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel linkDelete;
     }
 }

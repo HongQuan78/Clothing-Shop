@@ -218,5 +218,11 @@ namespace Clothing_shop
         {
             fillComboBox();
         }
+
+        private void linkDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            new DeleteCate().ShowDialog();
+
+        }
     }
 }
