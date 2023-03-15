@@ -109,6 +109,7 @@ namespace Clothing_shop.DAO
 
 
         }
+
         public List<OrderItems> getInvoice(int orderID)
         {
             List<OrderItems> orderItems = new List<OrderItems>();
@@ -142,6 +143,7 @@ namespace Clothing_shop.DAO
                         }
                     }
                 }
+                
             }
 
             return orderItems;

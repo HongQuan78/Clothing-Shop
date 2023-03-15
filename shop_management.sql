@@ -1,7 +1,26 @@
-use master
+﻿use master
 
 CREATE DATABASE clothing_shop_management;
 USE clothing_shop_management;
+
+ALTER DATABASE clothing_shop_management
+COLLATE Latin1_General_100_CI_AI_SC_UTF8;
+
+CREATE TRIGGER avoid_duplicate_username
+ON Employees
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    IF EXISTS (SELECT EmployeeUsername FROM Employees
+               GROUP BY EmployeeUsername
+               HAVING COUNT(*) > 1)
+    BEGIN
+        RAISERROR('Username already exists. Please choose a different one.', 16, 1)
+        ROLLBACK TRANSACTION
+    END
+END
+
+
 
 CREATE TRIGGER trg_OrderItems
 ON OrderItems
@@ -45,7 +64,7 @@ BEGIN
 END;
 
 CREATE TABLE Employees (
-    EmployeeID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
+    EmployeeID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     EmployeeName VARCHAR(250) NOT NULL,
     EmployeeRole VARCHAR(50) NOT NULL,
     EmployeeUsername VARCHAR(50) NOT NULL,
@@ -54,7 +73,6 @@ CREATE TABLE Employees (
     EmployeeAddress VARCHAR(250) NOT NULL,
 	EmployeeBirthDay DATETIME NOT NULL
 );
-
 
 CREATE TABLE Customers (
     CustomerID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
@@ -88,9 +106,11 @@ CREATE TABLE Orders (
     TotalAmount FLOAT,
     [Status] VARCHAR(50) NOT NULL DEFAULT('Pending'),
 	ModifiedDate DATETIME,
-	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE,
+	
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
+
+
 
 CREATE TABLE OrderItems (
     OrderID INT NOT NULL,
@@ -108,62 +128,6 @@ CREATE TABLE [Returns] (
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE
 );
 
-INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay) 
-VALUES 
-('Admin', 'Manager', 'admin', 'admin123', '123-456-7890', '123 Main St', '1990-01-01'),
-('Sarah Johnson', 'Staff', 'sarah.johnson', 'password456', '555-123-4567', '456 Elm St', '1995-02-14'),
-('Michael Brown', 'Staff', 'michael.brown', 'password789', '888-555-1234', '789 Oak St', '1985-05-15'),
-('Emily Davis', 'Staff', 'emily.davis', 'passwordabc', '111-222-3333', '321 Maple St', '1988-10-27'),
-('David Lee', 'Staff', 'david.lee', 'passworddef', '444-777-8888', '567 Pine St', '1993-06-30');
-
-
-INSERT INTO Customers (CustomerName, CustomerPhone, CustomerAddress)
-VALUES 
-('John Smith', '555-1234', '123 Main St.'),
-('Jane Doe', '555-5678', '456 High St.'),
-('Bob Johnson', '555-2468', '789 Broad St.'),
-('Sarah Lee', '555-3691', '369 Maple Ave.'),
-('David Chen', '555-4836', '483 Oak St.');
-
-INSERT INTO Categories (CategoryName, CategoryDescription)
-VALUES 
-('Clothing for Men', 'A variety of clothing options designed for men.'),
-('Clothing for Women', 'A variety of clothing options designed for women.'),
-('Clothing for children', 'A variety of clothing options designed for children.'),
-('Sportswear', 'Clothing designed for athletic and sport activities.'),
-('Outerwear', 'Clothing designed to be worn over other garments, such as jackets and coats.');
-
-INSERT INTO Products (ProductName, ProductDescription, ProductPrice, CategoryID, InventoryQuantity)
-VALUES 
-('Mens T-Shirt', 'A comfortable cotton T-shirt for men.', 19.99, 1, 999),
-('Womens Dress', 'A stylish dress for women made from breathable fabric.', 49.99, 2, 999),
-('Childrens Jeans', 'Durable jeans for kids.', 29.99, 3, 999),
-('Athletic Shorts', 'Moisture-wicking shorts for sports and exercise.', 24.99, 4, 999),
-('Winter Coat', 'A warm and cozy coat for cold weather.', 99.99, 5, 999);
-
--- Insert orders
-INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
-VALUES 
-(1, 1, 299.95),
-(2, 1, 174.98),
-(3, 2, 409.97),
-(4, 2, 599.94),
-(5, 3, 89.97);
-
--- Insert order items
-INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
-VALUES 
-(1, 1, 3),
-(1, 3, 2),
-(2, 2, 1),
-(2, 4, 2),
-(3, 3, 1),
-(3, 4, 4),
-(3, 5, 2),
-(4, 1, 2),
-(4, 2, 1),
-(4, 3, 3),
-(5, 5, 1);
 
 
 
@@ -198,3 +162,94 @@ SELECT SUM(ProductPrice * OrderItems_Quantity)
 					   select * from dbo.Orders where OrderID = 3
 					   select * from OrderItems  where OrderID = 3
 					   select * from dbo.Employees
+
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay)
+VALUES (N'Nguyễn Thị B', N'Staff', N'nguyenthib', N'123', '0987654321', N'456 Đường Lê Duẩn, Quận Thanh Khê, TP Đà Nẵng', '1990-05-12');
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay)
+VALUES (N'Trần Văn C', N'Staff', N'tranvanc', N'456', '0123456789', N'789 Đường Nguyễn Văn Linh, Quận Sơn Trà, TP Đà Nẵng', '1995-02-28');
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay)
+VALUES (N'Lê Thị D', N'Staff', N'lethid', N'123', '0905123456', N'321 Đường Ngô Quyền, Quận Liên Chiểu, TP Đà Nẵng', '1985-11-07');
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay)
+VALUES (N'Phạm Văn E', N'Staff', N'phamvane', N'123', '0987654321', N'741 Đường Hải Phòng, Quận Thanh Khê, TP Đà Nẵng', '1980-09-03');
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay)
+VALUES (N'Hoàng Thị F', N'Staff', N'hoangthif', N'123', '0905123456', N'963 Đường Nguyễn Tất Thành, Quận Hải Châu, TP Đà Nẵng', '1997-07-12');
+
+INSERT INTO Employees (EmployeeName, EmployeeRole, EmployeeUsername, EmployeePassword, EmployeePhone, EmployeeAddress, EmployeeBirthDay) 
+VALUES 
+('Admin', 'Manager', 'admin', 'admin123', '123-456-7890', '123 Main St', '1990-01-01')
+
+
+INSERT INTO Customers (CustomerName, CustomerPhone, CustomerAddress)
+VALUES 
+    (N'Nguyễn Văn A', '0987654321', N'Hà Nội, Việt Nam'),
+    (N'Phạm Thị B', '0123456789', N'Hồ Chí Minh, Việt Nam'),
+    (N'Trần Văn C', '0987654321', N'Đà Nẵng, Việt Nam'),
+    (N'Lê Thị D', '0123456789', N'Hải Phòng, Việt Nam'),
+    (N'Võ Văn E', '0987654321', N'Cần Thơ, Việt Nam');
+
+
+	INSERT INTO Categories (CategoryName, CategoryDescription)
+	VALUES 
+    (N'Áo sơ mi nam', N'Đồ án công sở cho nam giới'),
+    (N'Áo sơ mi nữ', N'Đồ án công sở cho nữ giới'),
+    (N'Quần jean nam', N'Quần jean dành cho nam giới'),
+    (N'Quần jean nữ', N'Quần jean dành cho nữ giới'),
+    (N'Đầm dạ hội', N'Đầm dành cho các buổi tiệc tối');
+
+	INSERT INTO Products (ProductName, ProductDescription, ProductPrice, CategoryID, InventoryQuantity)
+	VALUES 
+    (N'Áo sơ mi trắng cổ đứng', N'Áo sơ mi công sở nam trắng', 250000, 1, 50),
+    (N'Áo sơ mi xanh cổ trụ', N'Áo sơ mi công sở nam xanh', 270000, 1, 30),
+    (N'Áo sơ mi hoa nữ', N'Áo sơ mi công sở nữ hoa', 220000, 2, 40),
+    (N'Áo sơ mi caro nữ', N'Áo sơ mi công sở nữ caro', 200000, 2, 35),
+    (N'Quần jean đen nam', N'Quần jean nam màu đen', 350000, 3, 20),
+    (N'Quần jean xanh đen nam', N'Quần jean nam màu xanh đen', 370000, 3, 15),
+    (N'Quần jean rách nữ', N'Quần jean nữ có đường rách', 300000, 4, 25),
+    (N'Quần jean xám nữ', N'Quần jean nữ màu xám', 320000, 4, 30),
+    (N'Đầm dạ hội xanh lá', N'Đầm dạ hội màu xanh lá cây', 500000, 5, 10),
+    (N'Đầm dạ hội đen trắng', N'Đầm dạ hội đen trắng', 550000, 5, 8);
+
+
+	INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
+VALUES (1, 2, 15000000.0);
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
+VALUES (3, 1, 7500000.0);
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
+VALUES (2, 4, 18000000.0);
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
+VALUES (4, 3, 5000000.0);
+
+INSERT INTO Orders (CustomerID, EmployeeID, TotalAmount)
+VALUES (5, 2, 12000000.0);
+
+
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
+VALUES (1, 1, 2);
+
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
+VALUES (1, 2, 3);
+
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
+VALUES (2, 3, 1);
+
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
+VALUES (3, 5, 4);
+
+INSERT INTO OrderItems (OrderID, ProductID, OrderItems_Quantity)
+VALUES (5, 8, 2);
+
+INSERT INTO [Returns] (OrderID, Reason) VALUES (1, N'Sản phẩm không đúng mô tả trên website');
+INSERT INTO [Returns] (OrderID, Reason) VALUES (2, N'Sản phẩm bị lỗi khi nhận hàng');
+INSERT INTO [Returns] (OrderID, Reason) VALUES (3, N'Sản phẩm không phù hợp với nhu cầu sử dụng');
+INSERT INTO [Returns] (OrderID, Reason) VALUES (4, N'Sản phẩm bị hỏng trong quá trình vận chuyển');
+INSERT INTO [Returns] (OrderID, Reason) VALUES (5, N'Sản phẩm nhận được không đúng kích thước');
+
+select * from Returns

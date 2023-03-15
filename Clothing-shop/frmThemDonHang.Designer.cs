@@ -100,6 +100,7 @@
             // 
             // txtName
             // 
+            this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(290, 120);
             this.txtName.Name = "txtName";
             this.txtName.ReadOnly = true;
@@ -172,6 +173,7 @@
             // 
             // txtTotalAmount
             // 
+            this.txtTotalAmount.Font = new System.Drawing.Font("Times New Roman", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalAmount.Location = new System.Drawing.Point(290, 250);
             this.txtTotalAmount.Name = "txtTotalAmount";
             this.txtTotalAmount.ReadOnly = true;
