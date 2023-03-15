@@ -1,10 +1,8 @@
 ﻿use master
 
-CREATE DATABASE clothing_shop_management;
-USE clothing_shop_management;
+CREATE DATABASE clothing_shop_management COLLATE Latin1_General_100_CI_AI_SC_UTF8;
 
-ALTER DATABASE clothing_shop_management
-COLLATE Latin1_General_100_CI_AI_SC_UTF8;
+use clothing_shop_management
 
 CREATE TRIGGER avoid_duplicate_username
 ON Employees
@@ -65,32 +63,32 @@ END;
 
 CREATE TABLE Employees (
     EmployeeID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    EmployeeName VARCHAR(250) NOT NULL,
-    EmployeeRole VARCHAR(50) NOT NULL,
-    EmployeeUsername VARCHAR(50) NOT NULL,
-    EmployeePassword VARCHAR(50) NOT NULL,
-    EmployeePhone VARCHAR(20) NOT NULL,
-    EmployeeAddress VARCHAR(250) NOT NULL,
+    EmployeeName NVARCHAR(250) NOT NULL,
+    EmployeeRole NVARCHAR(50) NOT NULL,
+    EmployeeUsername NVARCHAR(50) NOT NULL UNIQUE,
+    EmployeePassword NVARCHAR(50) NOT NULL,
+    EmployeePhone NVARCHAR(20) NOT NULL,
+    EmployeeAddress NVARCHAR(250) NOT NULL,
 	EmployeeBirthDay DATETIME NOT NULL
 );
 
 CREATE TABLE Customers (
     CustomerID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    CustomerName VARCHAR(250) NOT NULL,
-    CustomerPhone VARCHAR(20) NOT NULL,
-    CustomerAddress VARCHAR(200) NOT NULL
+    CustomerName NVARCHAR(250) NOT NULL,
+    CustomerPhone NVARCHAR(20) NOT NULL,
+    CustomerAddress NVARCHAR(200) NOT NULL
 );
 
 CREATE TABLE Categories (
     CategoryID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    CategoryName VARCHAR(50) NOT NULL UNIQUE,
-    CategoryDescription VARCHAR(500)
+    CategoryName NVARCHAR(50) NOT NULL UNIQUE,
+    CategoryDescription NVARCHAR(500)
 );
 
 CREATE TABLE Products (
     ProductID INT NOT NULL PRIMARY KEY IDENTITY(1,1),
-    ProductName VARCHAR(100) NOT NULL,
-    ProductDescription VARCHAR(500),
+    ProductName NVARCHAR(100) NOT NULL,
+    ProductDescription NVARCHAR(500),
     ProductPrice FLOAT NOT NULL,
     CategoryID INT NOT NULL,
 	InventoryQuantity INT NOT NULL,
@@ -104,9 +102,9 @@ CREATE TABLE Orders (
     EmployeeID INT NOT NULL,
 	OrderDate DATETIME NOT NULL DEFAULT(GETDATE()),
     TotalAmount FLOAT,
-    [Status] VARCHAR(50) NOT NULL DEFAULT('Pending'),
+    [Status] NVARCHAR(50) NOT NULL DEFAULT('Pending'),
 	ModifiedDate DATETIME,
-	
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
 
@@ -124,7 +122,7 @@ CREATE TABLE OrderItems (
 CREATE TABLE [Returns] (
 	[ReturnID] INT NOT NULL PRIMARY KEY IDENTITY(1,1),
     OrderID INT NOT NULL,
-	Reason VARCHAR(200),
+	Reason NVARCHAR(200),
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID) ON DELETE CASCADE
 );
 
