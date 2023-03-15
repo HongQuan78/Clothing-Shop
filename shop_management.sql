@@ -104,7 +104,7 @@ CREATE TABLE Orders (
     TotalAmount FLOAT,
     [Status] NVARCHAR(50) NOT NULL DEFAULT('Pending'),
 	ModifiedDate DATETIME,
-	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE
+	FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
 
