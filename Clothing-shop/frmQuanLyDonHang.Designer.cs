@@ -48,6 +48,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnShow = new System.Windows.Forms.Button();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.timeFilter = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.viewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
@@ -78,7 +79,7 @@
             // 
             this.btnAddOrder.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddOrder.Location = new System.Drawing.Point(335, 155);
+            this.btnAddOrder.Location = new System.Drawing.Point(335, 139);
             this.btnAddOrder.Name = "btnAddOrder";
             this.btnAddOrder.Size = new System.Drawing.Size(102, 35);
             this.btnAddOrder.TabIndex = 2;
@@ -90,7 +91,7 @@
             // 
             this.btnDeleteOrder.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteOrder.Location = new System.Drawing.Point(456, 155);
+            this.btnDeleteOrder.Location = new System.Drawing.Point(456, 139);
             this.btnDeleteOrder.Name = "btnDeleteOrder";
             this.btnDeleteOrder.Size = new System.Drawing.Size(102, 35);
             this.btnDeleteOrder.TabIndex = 3;
@@ -100,7 +101,7 @@
             // 
             // txtSearchBox
             // 
-            this.txtSearchBox.Location = new System.Drawing.Point(314, 100);
+            this.txtSearchBox.Location = new System.Drawing.Point(301, 100);
             this.txtSearchBox.Name = "txtSearchBox";
             this.txtSearchBox.Size = new System.Drawing.Size(193, 20);
             this.txtSearchBox.TabIndex = 5;
@@ -109,7 +110,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(218, 96);
+            this.label2.Location = new System.Drawing.Point(205, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 24);
             this.label2.TabIndex = 6;
@@ -198,7 +199,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(532, 99);
+            this.btnSearch.Location = new System.Drawing.Point(521, 100);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 8;
@@ -210,7 +211,7 @@
             // 
             this.btnShow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShow.Location = new System.Drawing.Point(218, 155);
+            this.btnShow.Location = new System.Drawing.Point(218, 139);
             this.btnShow.Name = "btnShow";
             this.btnShow.Size = new System.Drawing.Size(102, 35);
             this.btnShow.TabIndex = 9;
@@ -222,11 +223,21 @@
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
             // 
+            // timeFilter
+            // 
+            this.timeFilter.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.timeFilter.Location = new System.Drawing.Point(12, 185);
+            this.timeFilter.Name = "timeFilter";
+            this.timeFilter.Size = new System.Drawing.Size(200, 20);
+            this.timeFilter.TabIndex = 10;
+            this.timeFilter.ValueChanged += new System.EventHandler(this.timeFilter_ValueChanged);
+            // 
             // frmQuanLyDonHang
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.timeFilter);
             this.Controls.Add(this.btnShow);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label2);
@@ -274,5 +285,6 @@
         private System.Windows.Forms.ToolStripMenuItem quanLySanPhamToolStripMenuItem;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnShow;
+        private System.Windows.Forms.DateTimePicker timeFilter;
     }
 }

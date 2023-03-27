@@ -58,7 +58,18 @@ namespace Clothing_shop
             {
                 quanLyNhanVien_Menu.Visible = false;
             }
+            fillComboBox();
         }
+
+        public void fillComboBox()
+        {
+            CategoryDAO categoryDAO = new CategoryDAO();
+            var comboBox = categoryDAO.GetAllCategories();
+            comboCategory.DataSource = comboBox;
+            comboCategory.DisplayMember = "CategoryName";
+            comboCategory.ValueMember = "CategoryID";
+        }
+
         public void displayProduct()
         {
             var products = productsDAO.GetAllProducts();
@@ -146,6 +157,18 @@ namespace Clothing_shop
             if (frm != null)
             {
                 frm.displayOrders();
+            }
+        }
+
+        private void comboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (comboCategory.SelectedValue != null && int.TryParse(comboCategory.SelectedValue.ToString(), out int selectedValue))
+            {
+                var list = productsDAO.GetProductByCate(selectedValue);
+                // Use the list of products as needed
+                productsView.DataSource = list;
+                productsView.AutoGenerateColumns = true;
             }
         }
     }

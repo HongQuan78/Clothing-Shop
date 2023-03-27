@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clothing_shop.DAO
 {
@@ -210,6 +211,43 @@ namespace Clothing_shop.DAO
             }
         }
 
+        public List<Orders> GetOrderByDate(DateTime date)
+        {
+            List<Orders> orders = new List<Orders>();
 
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "select * from dbo.Orders where CONVERT(DATE, OrderDate) = CONVERT(DATE, @Date)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Date", date.Date);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Orders order = new Orders();
+                        order.OrderID = reader.GetInt32(0);
+                        order.CustomerID = reader.GetInt32(1);
+                        order.EmployeeID = reader.GetInt32(2);
+                        order.OrderDate = reader.GetDateTime(3);
+                        order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
+                        order.Status = reader.GetString(5);
+                        order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
+
+                        orders.Add(order);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return orders;
+        }
     }
 }

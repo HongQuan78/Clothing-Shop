@@ -17,7 +17,7 @@ public class ProductDAO
     public List<Products> GetAllProducts()
     {
         List<Products> products = new List<Products>();
-        using ( connection = new DBConnect().getConnection())
+        using (connection = new DBConnect().getConnection())
         {
             string query = "SELECT * FROM Products";
             SqlCommand command = new SqlCommand(query, connection);
@@ -29,7 +29,7 @@ public class ProductDAO
                 {
                     ProductID = (int)reader["ProductID"],
                     ProductName = (string)reader["ProductName"],
-                    ProductDescription = (string)reader["ProductDescription"] ,
+                    ProductDescription = (string)reader["ProductDescription"],
                     ProductPrice = (double)reader["ProductPrice"],
                     CategoryID = (int)reader["CategoryID"],
                     InventoryQuantity = (int)reader["InventoryQuantity"]
@@ -135,7 +135,7 @@ public class ProductDAO
             connection.Open();
             command.ExecuteNonQuery();
         }
-        
+
     }
     public void DeleteProduct(int productID)
     {
@@ -147,5 +147,33 @@ public class ProductDAO
             connection.Open();
             command.ExecuteNonQuery();
         }
+    }
+
+    //get product by category
+    public List<Products> GetProductByCate(int cateID)
+    {
+        List<Products> products = new List<Products>();
+        using (connection = new DBConnect().getConnection())
+        {
+            string query = "SELECT * FROM Products where CategoryID = @category";
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@category", cateID);
+            connection.Open();
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                Products product = new Products
+                {
+                    ProductID = (int)reader["ProductID"],
+                    ProductName = (string)reader["ProductName"],
+                    ProductDescription = (string)reader["ProductDescription"],
+                    ProductPrice = (double)reader["ProductPrice"],
+                    CategoryID = (int)reader["CategoryID"],
+                    InventoryQuantity = (int)reader["InventoryQuantity"]
+                };
+                products.Add(product);
+            }
+        }
+        return products;
     }
 }

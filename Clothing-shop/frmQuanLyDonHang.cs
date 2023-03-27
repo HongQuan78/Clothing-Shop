@@ -166,5 +166,14 @@ namespace Clothing_shop
             OrderDetail orderDetail = new OrderDetail(orderID, -1);
             orderDetail.ShowDialog();
     }
+
+        private void timeFilter_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime selectedDate = timeFilter.Value;
+            MessageBox.Show(selectedDate.Date.ToString());
+            var orders = ordersDAO.GetOrderByDate(selectedDate);
+            viewOrders.DataSource = orders;
+            viewOrders.AutoGenerateColumns = true;
+        }
     }
 }

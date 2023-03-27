@@ -48,6 +48,7 @@
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboCategory = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.productsView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.amount)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -65,7 +66,7 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(13, 248);
+            this.label.Location = new System.Drawing.Point(12, 243);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(75, 13);
             this.label.TabIndex = 11;
@@ -225,11 +226,21 @@
             this.xemKhachHangToolStripMenuItem.Text = "Xem Khách Hàng";
             this.xemKhachHangToolStripMenuItem.Click += new System.EventHandler(this.xemKhachHangToolStripMenuItem_Click);
             // 
+            // comboCategory
+            // 
+            this.comboCategory.FormattingEnabled = true;
+            this.comboCategory.Location = new System.Drawing.Point(94, 240);
+            this.comboCategory.Name = "comboCategory";
+            this.comboCategory.Size = new System.Drawing.Size(121, 21);
+            this.comboCategory.TabIndex = 24;
+            this.comboCategory.SelectedIndexChanged += new System.EventHandler(this.comboCategory_SelectedIndexChanged);
+            // 
             // AddOrderDeatail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboCategory);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.amount);
             this.Controls.Add(this.btnback);
@@ -279,5 +290,6 @@
         private System.Windows.Forms.ToolStripMenuItem theemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem xemKhachHangToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quanLySanPhamToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboCategory;
     }
 }
