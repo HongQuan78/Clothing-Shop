@@ -2,10 +2,7 @@
 using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography.X509Certificates;
-
 public class ProductDAO
 {
     private SqlConnection connection;
@@ -62,7 +59,6 @@ public class ProductDAO
                     ProductDescription = (string)reader["ProductDescription"],
                     ProductPrice = (double)reader["ProductPrice"],
                     CategoryID = (int)reader["CategoryID"],
-                    CategoryName = (string)reader["CategoryName"],
                     InventoryQuantity = (int)reader["InventoryQuantity"]
                 };
                 products.Add(product);

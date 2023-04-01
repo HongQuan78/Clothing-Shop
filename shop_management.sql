@@ -251,3 +251,17 @@ INSERT INTO [Returns] (OrderID, Reason) VALUES (4, N'Sản phẩm bị hỏng tr
 INSERT INTO [Returns] (OrderID, Reason) VALUES (5, N'Sản phẩm nhận được không đúng kích thước');
 
 select * from Returns
+
+
+SELECT DISTINCT Products.*
+FROM Products
+INNER JOIN OrderItems ON Products.ProductID = OrderItems.ProductID
+INNER JOIN Orders ON OrderItems.OrderID = Orders.OrderID
+WHERE Orders.Status = 'Pending' or Orders.Status = 'Delivered';
+
+
+SELECT MONTH(OrderDate) AS Month, YEAR(OrderDate) AS Year, SUM(TotalAmount) AS TotalRevenue
+FROM Orders
+WHERE OrderDate BETWEEN '2023-01-01' AND '2023-12-31'
+GROUP BY MONTH(OrderDate), YEAR(OrderDate)
+ORDER BY YEAR(OrderDate), MONTH(OrderDate)

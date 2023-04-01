@@ -9,8 +9,8 @@ namespace Clothing_shop.Model
     public class Categories
     {
         public int CategoryID { get; set; }
-        public String CategoryName { get; set; }
-        public String CategoryDescription { get; set; }
+        public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
         public Categories()
         {
 

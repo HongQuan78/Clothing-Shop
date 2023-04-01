@@ -10,12 +10,12 @@ namespace Clothing_shop.Model
     {
 
         public int EmployeeID { get; set; }
-        public String EmployeeName { get; set; }
-        public String EmployeeRole { get; set; }
-        public String EmployeeUsername { get; set; }
-        public String EmployeePassword { get; set; }
-        public String EmployeePhone { get; set; }
-        public String EmployeeAddress { get; set; }
+        public string EmployeeName { get; set; }
+        public string EmployeeRole { get; set; }
+        public string EmployeeUsername { get; set; }
+        public string EmployeePassword { get; set; }
+        public string EmployeePhone { get; set; }
+        public string EmployeeAddress { get; set; }
         public DateTime EmployeeBirthDay { get; set; }
         public Employees() { }
         public Employees(int employeeID, string employeeName, string employeeRole, string employeeUsername, string employeePassword, string employeePhone, string employeeAddress, DateTime employeeBirthDay)

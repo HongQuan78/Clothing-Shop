@@ -1,4 +1,5 @@
 ﻿using Clothing_shop.DAO;
+using Clothing_shop.DBConnection;
 using Clothing_shop.Model;
 using System;
 using System.CodeDom;
@@ -18,6 +19,7 @@ namespace Clothing_shop
     {
         private OrderItemsDAO orderItemsDAO = new OrderItemsDAO();
         private ProductDAO productsDAO = new ProductDAO();
+        private CustomerDAO customerDAO = new CustomerDAO();
         public static int OrderID = -1;
         private int ProductID = -1;
         public AddOrderDeatail()
@@ -73,7 +75,32 @@ namespace Clothing_shop
         public void displayProduct()
         {
             var products = productsDAO.GetAllProducts();
-            productsView.DataSource = products;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã sản phẩm");
+            dt.Columns.Add("Tên sản phẩm");
+            dt.Columns.Add("Mô tả");
+            dt.Columns.Add("Giá");
+            dt.Columns.Add("Loại sản phẩm");
+            dt.Columns.Add("Số lượng trong kho");
+            foreach (var item in products)
+            {
+                Categories cate = new CategoryDAO().GetCategoryById(item.CategoryID);
+                dt.Rows.Add(
+                    item.ProductID, 
+                    item.ProductName, 
+                    item.ProductDescription, 
+                    item.ProductPrice, 
+                    cate.CategoryName, 
+                    item.InventoryQuantity);
+            }
+            productsView.DataSource = dt;
+            //change width of column
+            productsView.Columns[0].Width = 100; 
+            productsView.Columns[1].Width = 150;
+            productsView.Columns[2].Width = 200;
+            productsView.Columns[3].Width = 200;
+            productsView.Columns[4].Width = 150;
+            productsView.Columns[5].Width = 150;
             productsView.AutoGenerateColumns = true;
         }
 

@@ -80,7 +80,26 @@ namespace Clothing_shop
             if (orderID > -1)
             {
                 var OrderDetailList = new OrderItemsDAO().GetOrderItemsByOrderID(orderID);
-                OrderView.DataSource = OrderDetailList;
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Mã đơn hàng");
+                dt.Columns.Add("Mã sản phẩm");
+                dt.Columns.Add("Tên sản phẩm");
+                dt.Columns.Add("Mô tả");
+                dt.Columns.Add("Số lượng");
+                dt.Columns.Add("Giá");
+                foreach (var item in OrderDetailList)
+                {
+                    //add rows to datagridviews
+                    dt.Rows.Add(
+                        item.OrderID, 
+                        item.ProductID, 
+                        item.ProductName, 
+                        item.ProductDescription, 
+                        item.OrderItems_Quantity, 
+                        item.Price
+                        );
+                }
+                OrderView.DataSource = dt;
                 OrderView.AutoGenerateColumns = true;
             }
         }
@@ -200,7 +219,6 @@ namespace Clothing_shop
             }
             catch (Exception)
             {
-                throw;
                 MessageBox.Show("Không thể xóa");
             }
         }

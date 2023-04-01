@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Odbc;
 using System.Data.SqlClient;
+using System.Windows.Forms.DataVisualization.Charting;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Clothing_shop.DAO
@@ -76,7 +77,7 @@ namespace Clothing_shop.DAO
                     order.CustomerID = reader.GetInt32(1);
                     order.EmployeeID = reader.GetInt32(2);
                     order.OrderDate = reader.GetDateTime(3);
-                    order.TotalAmount = reader.IsDBNull(4)? 0 : reader.GetDouble(4);
+                    order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
                     order.Status = reader.GetString(5);
                     order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
                 }
@@ -235,7 +236,6 @@ namespace Clothing_shop.DAO
                         order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
                         order.Status = reader.GetString(5);
                         order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
-
                         orders.Add(order);
                     }
 
@@ -249,5 +249,127 @@ namespace Clothing_shop.DAO
 
             return orders;
         }
+
+        public double GetTotalAmount()
+        {
+            double total = 0;
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT SUM(TotalAmount) AS TotalAmountSum FROM Orders";
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        total = reader.GetDouble(0);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return total;
+        }
+
+
+        public double GetTotalAmountByDate(DateTime date)
+        {
+            double total = 0;
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT SUM(TotalAmount) AS TotalAmountSum FROM Orders" +
+                    " Where CONVERT(DATE, OrderDate) = CONVERT(DATE, @Date)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Date", date.Date);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        total = reader.GetDouble(0);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return total;
+        }
+
+        public double GetTotalAmountByMonth(DateTime date)
+        {
+            double total = 0;
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT SUM(TotalAmount) AS TotalAmountSum FROM Orders" +
+                               " WHERE YEAR(OrderDate) = @Year AND MONTH(OrderDate) = @Month";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Year", date.Year);
+                command.Parameters.AddWithValue("@Month", date.Month);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        total = reader.GetDouble(0);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return total;
+        }
+
+
+
+
+        public Dictionary<string, double> GetChartData()
+        {
+            Dictionary<string, double> data = new Dictionary<string, double>();
+
+            using (connection = new DBConnect().getConnection())
+            {
+                connection.Open();
+                int currentYear = DateTime.Now.Year;
+                string query = "SELECT MONTH(OrderDate) AS Month, YEAR(OrderDate) AS Year, SUM(TotalAmount) AS TotalRevenue " +
+                               "FROM Orders " +
+                               $"WHERE OrderDate BETWEEN '{currentYear}-01-01' AND '{currentYear}-12-31' " +
+                               "GROUP BY MONTH(OrderDate), YEAR(OrderDate) " +
+                               "ORDER BY YEAR(OrderDate), MONTH(OrderDate)";
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string monthYear = reader.GetInt32(0).ToString() + "/" + reader.GetInt32(1).ToString();
+                    double totalRevenue = reader.GetDouble(2);
+
+                    data.Add(monthYear, totalRevenue);
+                }
+            }
+
+            return data;
+        }
+
+
+
     }
 }

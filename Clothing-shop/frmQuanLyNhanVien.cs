@@ -1,6 +1,7 @@
 ﻿using Clothing_shop.DAO;
 using Clothing_shop.Model;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,15 +40,38 @@ namespace Clothing_shop
             displayListEmployee();
         }
 
+        public void DGVConfig(List<Employees> listEmployees)
+        {
+            var employees = listEmployees;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã nhân viên");
+            dt.Columns.Add("Tên");
+            dt.Columns.Add("Vị trí");
+            dt.Columns.Add("Username");
+            dt.Columns.Add("Password");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Địa chỉ");
+            dt.Columns.Add("Ngày sinh");
+            foreach (var item in employees)
+            {
+                dt.Rows.Add(
+                    item.EmployeeID,
+                    item.EmployeeName,
+                    item.EmployeeRole,
+                    item.EmployeeUsername,
+                    item.EmployeePassword,
+                    item.EmployeePhone,
+                    item.EmployeeAddress,
+                    item.EmployeeBirthDay);
+            }
+            ViewEmployeeList.DataSource = dt;
+            ViewEmployeeList.AutoGenerateColumns = true;
+        }
+
         public void displayListEmployee()
         {
-
-            var employees = new EmployeesDAO().GetAllEmployees();
-            DataTable dt = new DataTable();
-            ViewEmployeeList.DataSource = employees;
-           
-
-
+            var list = new EmployeesDAO().GetAllEmployees();
+            DGVConfig(list);
         }
 
         private void ViewEmployeeList_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -80,8 +104,8 @@ namespace Clothing_shop
 
                 MessageBox.Show("Không thể thành công");
             }
-                
-           
+
+
         }
 
         public Employees getEmployee(int idParam)
@@ -112,7 +136,7 @@ namespace Clothing_shop
                     displayListEmployee();
                 }
 
-                
+
             }
             catch (Exception)
             {
@@ -124,7 +148,7 @@ namespace Clothing_shop
         private void btnEdit_Click(object sender, EventArgs e)
         {
             try
-            {   
+            {
                 dao.UpdateEmployee(getEmployee(empID));
                 MessageBox.Show("Chỉnh sửa thành công");
                 displayListEmployee();
@@ -134,7 +158,7 @@ namespace Clothing_shop
 
                 MessageBox.Show("Có lỗi xảy ra");
             }
-            
+
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -143,12 +167,10 @@ namespace Clothing_shop
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
-        {   
+        {
             string name = txtSearch.Text;
             var employees = new EmployeesDAO().SearchEmployeesByName(name);
-            DataTable dt = new DataTable();
-            ViewEmployeeList.DataSource = employees;
-            ViewEmployeeList.AutoGenerateColumns = true;
+            DGVConfig(employees);
             txtSearch.Text = "Tìm kiếm theo tên";
         }
 

@@ -50,7 +50,33 @@ namespace Clothing_shop
         public void displayProduct()
         {
             var products = productsDAO.GetAllProductsCate();
-            dataGridView1.DataSource = products;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã sản phẩm");
+            dt.Columns.Add("Tên sản phẩm");
+            dt.Columns.Add("Mô tả");
+            dt.Columns.Add("Giá");
+            dt.Columns.Add("Loại sản phẩm");
+            dt.Columns.Add("Số lượng");
+            foreach (var item in products)
+            {
+                Categories cate = new CategoryDAO().GetCategoryById(item.CategoryID);
+                dt.Rows.Add(
+                    item.ProductID,
+                    item.ProductName,
+                    item.ProductDescription,
+                    item.ProductPrice,
+                    cate.CategoryName,
+                    item.InventoryQuantity
+                    );
+            }
+            dataGridView1.DataSource = dt;
+            //change width of column
+            dataGridView1.Columns[0].Width = 100;
+            dataGridView1.Columns[1].Width = 200;
+            dataGridView1.Columns[2].Width = 200;
+            dataGridView1.Columns[3].Width = 100;
+            dataGridView1.Columns[4].Width = 100;
+            dataGridView1.Columns[5].Width = 100;
             dataGridView1.AutoGenerateColumns = true;
         }
 
@@ -109,8 +135,8 @@ namespace Clothing_shop
                 txtName.Text = dataGridView1.Rows[numrow].Cells[1].Value.ToString();
                 txtDescription.Text = dataGridView1.Rows[numrow].Cells[2].Value.ToString();
                 txtPrice.Text = dataGridView1.Rows[numrow].Cells[3].Value.ToString();
-                txtAmount.Text = dataGridView1.Rows[numrow].Cells[6].Value.ToString();
-                categoryBox.Text = dataGridView1.Rows[numrow].Cells[5].Value.ToString();
+                txtAmount.Text = dataGridView1.Rows[numrow].Cells[5].Value.ToString();
+                categoryBox.Text = dataGridView1.Rows[numrow].Cells[4].Value.ToString();
 
             }
         }
@@ -134,12 +160,12 @@ namespace Clothing_shop
                 productsDAO.AddProduct(new Products
                 {
                     ProductID = productID,
-                    ProductName= name,
-                    ProductDescription= description,
-                    ProductPrice= price,
-                    CategoryID= cateId,
+                    ProductName = name,
+                    ProductDescription = description,
+                    ProductPrice = price,
+                    CategoryID = cateId,
                     InventoryQuantity = amount
-                }) ;
+                });
 
                 productID = -1;
                 txtName.Text = "";

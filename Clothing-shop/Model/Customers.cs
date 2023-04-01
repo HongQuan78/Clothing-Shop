@@ -9,10 +9,10 @@ namespace Clothing_shop.Model
     public class Customers
     {
         public int CustomerID { get; set; }
-        public String CustomerName { get; set; }
+        public string CustomerName { get; set; }
 
-        public String CustomerPhone { get; set;}
-        public String CustomerAddress { get; set;}
+        public string CustomerPhone { get; set;}
+        public string CustomerAddress { get; set;}
         public Customers()
         {
 

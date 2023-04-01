@@ -35,7 +35,26 @@ namespace Clothing_shop
         public void displayCustomer()
         {
             var customers = customerDAO.GetAllCustomers();
-            CusView.DataSource = customers;
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã khách hàng");
+            dt.Columns.Add("Tên khách hàng");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Địa chỉ");
+            foreach (var item in customers)
+            {
+                dt.Rows.Add(
+                    item.CustomerID,
+                    item.CustomerName,
+                    item.CustomerPhone,
+                    item.CustomerAddress
+                    );
+            }
+            CusView.DataSource = dt;
+            //change width of column
+            CusView.Columns[0].Width = 100;
+            CusView.Columns[1].Width = 200;
+            CusView.Columns[2].Width = 200;
+            CusView.Columns[3].Width = 250;
             CusView.AutoGenerateColumns = true;
         }
 

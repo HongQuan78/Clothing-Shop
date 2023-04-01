@@ -3,14 +3,11 @@ using Clothing_shop.DBConnection;
 using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Clothing_shop
 {
@@ -18,6 +15,8 @@ namespace Clothing_shop
     {
         public int orderID = -1;
         private OrderDAO ordersDAO = new OrderDAO();
+        private CustomerDAO customerDAO = new CustomerDAO();
+        private EmployeesDAO empDAO = new EmployeesDAO();
         public frmQuanLyDonHang()
         {
             InitializeComponent();
@@ -34,18 +33,43 @@ namespace Clothing_shop
         private void frmQuanLyDonHang_Load(object sender, EventArgs e)
         {
             displayOrder();
+            displayChart();
+            lbdoanhthu.Text = ordersDAO.GetTotalAmount().ToString() + "vnd";
             quanLyNhanVien_Menu.Visible = true;
             if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
             {
                 quanLyNhanVien_Menu.Visible = false;
             }
+            
         }
+
+        public void DGVConfig(List<Orders> orders)
+        {
+            DataTable dt = new DataTable();
+            //custom value in datagridview
+            dt.Columns.Add("Mã đơn hàng", typeof(int));
+            dt.Columns.Add("Tên khách hàng", typeof(string));
+            dt.Columns.Add("Tổng giá tiền", typeof(double));
+            dt.Columns.Add("Ngày đặt hàng", typeof(DateTime));
+            dt.Columns.Add("Trạng thái", typeof(string));
+            dt.Columns.Add("Ngày đã giao", typeof(string));
+            foreach (var item in orders)
+            {
+                Customers cus = customerDAO.GetCustomerById(item.CustomerID);
+                dt.Rows.Add(
+                item.OrderID, cus.CustomerName,
+                item.TotalAmount,
+                item.OrderDate,
+                item.Status);
+            }
+            viewOrders.DataSource = dt;
+            viewOrders.AutoGenerateColumns = true;
+        }
+
         public void displayOrder()
         {
             var orders = ordersDAO.GetAllOrders();
-            DataTable dt = new DataTable();
-            viewOrders.DataSource = orders;
-            viewOrders.AutoGenerateColumns = true;
+            DGVConfig(orders);
             viewOrders.Refresh();
 
         }
@@ -114,7 +138,7 @@ namespace Clothing_shop
 
                 MessageBox.Show("Không thể xóa");
             }
-            
+
         }
 
         private void viewOrders_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -139,8 +163,7 @@ namespace Clothing_shop
         {
             string search = txtSearchBox.Text;
             var orders = ordersDAO.SearchOrder(search);
-            viewOrders.DataSource = orders;
-            viewOrders.AutoGenerateColumns = true;
+            DGVConfig(orders);
         }
 
         private void btnShow_Click(object sender, EventArgs e)
@@ -165,15 +188,46 @@ namespace Clothing_shop
         {
             OrderDetail orderDetail = new OrderDetail(orderID, -1);
             orderDetail.ShowDialog();
-    }
+        }
 
         private void timeFilter_ValueChanged(object sender, EventArgs e)
         {
             DateTime selectedDate = timeFilter.Value;
-            MessageBox.Show(selectedDate.Date.ToString());
             var orders = ordersDAO.GetOrderByDate(selectedDate);
-            viewOrders.DataSource = orders;
-            viewOrders.AutoGenerateColumns = true;
+            DGVConfig(orders);
+            lbAmountDate.Text = selectedDate.ToString("dd/MM/yyyy") + ": " + ordersDAO.GetTotalAmountByDate(selectedDate).ToString() + "vnd";
+            lbAmountMonth.Text = selectedDate.ToString("MM/yyyy") + ": " + ordersDAO.GetTotalAmountByMonth(selectedDate).ToString() + " vnd";
+
+
+
+        }
+
+        private void displayChart()
+        {
+            Dictionary<string, double> chartData = ordersDAO.GetChartData();
+            if (chart.Series.IndexOf("Series1") >= 0)
+            {
+                chart.Series.Remove(chart.Series["Series1"]);
+            }
+
+            // Add a new series to the chart
+            chart.Series.Add("TotalRevenue");
+
+            // Set the chart type to column chart
+            chart.Series["TotalRevenue"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+
+            // Set the X-axis title
+            chart.ChartAreas[0].AxisX.Title = "Month/Year";
+
+            // Set the Y-axis title
+            chart.ChartAreas[0].AxisY.Title = "Total Revenue";
+
+            // Add the chart data to the TotalRevenue series
+            foreach (KeyValuePair<string, double> data in chartData)
+            {
+                chart.Series["TotalRevenue"].Points.AddXY(data.Key, data.Value);
+            }
+
         }
     }
 }

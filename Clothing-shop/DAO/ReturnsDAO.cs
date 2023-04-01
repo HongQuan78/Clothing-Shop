@@ -12,7 +12,7 @@ namespace Clothing_shop.DAO
 
         public ReturnsDAO()
         {
-          
+
         }
 
         public int Create(Returns returns)
@@ -110,6 +110,37 @@ namespace Clothing_shop.DAO
                 {
                     command.Parameters.AddWithValue("@ReturnID", id);
                     command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<Returns> ReturnSearch(string searchKey)
+        {
+
+            using (connection = new DBConnect().getConnection())
+            {
+                connection.Open();
+
+                string query = "SELECT r.ReturnID, o.OrderID, c.CustomerName, r.Reason " +
+                               "FROM Returns r " +
+                               "INNER JOIN Orders o ON r.OrderID = o.OrderID " +
+                               "INNER JOIN Customers c ON o.CustomerID = c.CustomerID " +
+                               "WHERE c.CustomerName LIKE '%' + @CustomerName + '%'";
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@CustomerName", searchKey);
+
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    List<Returns> returnsList = new List<Returns>();
+
+                    while (reader.Read())
+                    {
+                        Returns returns = new Returns(reader.GetInt32(0), reader.GetInt32(1), reader.GetString(2));
+                        returnsList.Add(returns);
+                    }
+
+                    return returnsList;
                 }
             }
         }

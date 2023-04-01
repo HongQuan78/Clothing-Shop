@@ -55,11 +55,11 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyDonHang = new System.Windows.Forms.ToolStripMenuItem();
             this.quanLyNhanVien_Menu = new System.Windows.Forms.ToolStripMenuItem();
+            this.quanLySanPhamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemHangTraLai = new System.Windows.Forms.ToolStripMenuItem();
             this.theemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.xemKhachHangToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.quanLySanPhamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.ViewEmployeeList)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeesBindingSource)).BeginInit();
@@ -165,6 +165,7 @@
             // 
             // txtEmpBirthday
             // 
+            this.txtEmpBirthday.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.txtEmpBirthday.Location = new System.Drawing.Point(547, 99);
             this.txtEmpBirthday.Name = "txtEmpBirthday";
             this.txtEmpBirthday.Size = new System.Drawing.Size(205, 20);
@@ -287,48 +288,48 @@
             // quanLyDonHang
             // 
             this.quanLyDonHang.Name = "quanLyDonHang";
-            this.quanLyDonHang.Size = new System.Drawing.Size(180, 22);
+            this.quanLyDonHang.Size = new System.Drawing.Size(170, 22);
             this.quanLyDonHang.Text = "Quản lý đơn hàng";
             this.quanLyDonHang.Click += new System.EventHandler(this.quanLyDonHang_Click);
             // 
             // quanLyNhanVien_Menu
             // 
             this.quanLyNhanVien_Menu.Name = "quanLyNhanVien_Menu";
-            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(180, 22);
+            this.quanLyNhanVien_Menu.Size = new System.Drawing.Size(170, 22);
             this.quanLyNhanVien_Menu.Text = "Quản lý nhân viên";
             this.quanLyNhanVien_Menu.Click += new System.EventHandler(this.quanLyNhanVien_Menu_Click_1);
+            // 
+            // quanLySanPhamToolStripMenuItem
+            // 
+            this.quanLySanPhamToolStripMenuItem.Name = "quanLySanPhamToolStripMenuItem";
+            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.quanLySanPhamToolStripMenuItem.Text = "Quản lý sản phẩm";
+            this.quanLySanPhamToolStripMenuItem.Click += new System.EventHandler(this.quanLySanPhamToolStripMenuItem_Click);
             // 
             // xemHangTraLai
             // 
             this.xemHangTraLai.Name = "xemHangTraLai";
-            this.xemHangTraLai.Size = new System.Drawing.Size(180, 22);
+            this.xemHangTraLai.Size = new System.Drawing.Size(170, 22);
             this.xemHangTraLai.Text = "Xem Hàng Trả Lại";
             this.xemHangTraLai.Click += new System.EventHandler(this.xemHangTraLai_Click);
             // 
             // theemToolStripMenuItem
             // 
             this.theemToolStripMenuItem.Name = "theemToolStripMenuItem";
-            this.theemToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.theemToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.theemToolStripMenuItem.Text = "Thêm Đơn Hàng";
             this.theemToolStripMenuItem.Click += new System.EventHandler(this.theemToolStripMenuItem_Click);
             // 
             // xemKhachHangToolStripMenuItem
             // 
             this.xemKhachHangToolStripMenuItem.Name = "xemKhachHangToolStripMenuItem";
-            this.xemKhachHangToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.xemKhachHangToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
             this.xemKhachHangToolStripMenuItem.Text = "Xem Khách Hàng";
             this.xemKhachHangToolStripMenuItem.Click += new System.EventHandler(this.xemKhachHangToolStripMenuItem_Click);
             // 
             // employeesBindingSource
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
-            // 
-            // quanLySanPhamToolStripMenuItem
-            // 
-            this.quanLySanPhamToolStripMenuItem.Name = "quanLySanPhamToolStripMenuItem";
-            this.quanLySanPhamToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.quanLySanPhamToolStripMenuItem.Text = "Quản lý sản phẩm";
-            this.quanLySanPhamToolStripMenuItem.Click += new System.EventHandler(this.quanLySanPhamToolStripMenuItem_Click);
             // 
             // frmQuanLyNhanVien
             // 

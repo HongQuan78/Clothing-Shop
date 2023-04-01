@@ -1,5 +1,6 @@
 ﻿using Clothing_shop.DAO;
 using Clothing_shop.DBConnection;
+using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,11 +31,40 @@ namespace Clothing_shop
             }
             displayReturn();
         }
+
+        public void DGVConfig(List<Returns> returns)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã");
+            dt.Columns.Add("Mã đơn hàng");
+            dt.Columns.Add("Tên khách hàng");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Lý do");
+            foreach (var item in returns)
+            {
+                Orders o = new OrderDAO().GetOrderById(item.OrderID);
+                Customers cus = new CustomerDAO().GetCustomerById(o.CustomerID);
+                dt.Rows.Add(
+                    item.ReturnID,
+                    item.OrderID,
+                    cus.CustomerName,
+                    cus.CustomerPhone,
+                    item.Reason);
+            }
+            dataGridView1.DataSource = dt;
+            dataGridView1.Columns[0].Width = 100;
+            dataGridView1.Columns[1].Width = 100;
+            dataGridView1.Columns[2].Width = 200;
+            dataGridView1.Columns[3].Width = 100;
+            dataGridView1.Columns[4].Width = 250;
+            dataGridView1.AutoGenerateColumns = true;
+        }
+
         public void displayReturn()
         {
             var returns = returnsDAO.GetAll();
-            dataGridView1.DataSource = returns;
-            dataGridView1.AutoGenerateColumns = true;
+            DGVConfig(returns);
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -94,6 +124,13 @@ namespace Clothing_shop
                 orderid = int.Parse(dataGridView1.Rows[numrow].Cells[1].Value.ToString());
             }
             new OrderDetail(orderid, returnid).ShowDialog();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchKey = txtSearch.Text;
+            var returns = returnsDAO.ReturnSearch(searchKey);
+            DGVConfig(returns);
         }
     }
 }
