@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmQuanLyDonHang));
             this.viewOrders = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.btnAddOrder = new System.Windows.Forms.Button();
@@ -52,15 +53,18 @@
             this.btnShow = new System.Windows.Forms.Button();
             this.timeFilter = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbtotal = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnChonThang = new System.Windows.Forms.Button();
+            this.btnXemTheomatHang = new System.Windows.Forms.Button();
             this.lbdoanhthu = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.btnXemTheomatHang = new System.Windows.Forms.Button();
-            this.btnChonThang = new System.Windows.Forms.Button();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lbtotal = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.btnPrint = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.viewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -249,6 +253,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnPrint);
             this.panel1.Controls.Add(this.lbtotal);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.btnChonThang);
@@ -261,6 +266,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(591, 472);
             this.panel1.TabIndex = 11;
+            // 
+            // lbtotal
+            // 
+            this.lbtotal.AutoSize = true;
+            this.lbtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbtotal.Location = new System.Drawing.Point(147, 31);
+            this.lbtotal.Name = "lbtotal";
+            this.lbtotal.Size = new System.Drawing.Size(20, 18);
+            this.lbtotal.TabIndex = 21;
+            this.lbtotal.Text = "...";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(16, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 18);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Tổng doanh thu";
+            // 
+            // btnChonThang
+            // 
+            this.btnChonThang.Location = new System.Drawing.Point(150, 77);
+            this.btnChonThang.Name = "btnChonThang";
+            this.btnChonThang.Size = new System.Drawing.Size(122, 23);
+            this.btnChonThang.TabIndex = 19;
+            this.btnChonThang.Text = "Xem theo tháng";
+            this.btnChonThang.UseVisualStyleBackColor = true;
+            this.btnChonThang.Click += new System.EventHandler(this.btnChonThang_Click);
+            // 
+            // btnXemTheomatHang
+            // 
+            this.btnXemTheomatHang.Location = new System.Drawing.Point(19, 77);
+            this.btnXemTheomatHang.Name = "btnXemTheomatHang";
+            this.btnXemTheomatHang.Size = new System.Drawing.Size(122, 23);
+            this.btnXemTheomatHang.TabIndex = 17;
+            this.btnXemTheomatHang.Text = "Xem theo mặt hàng";
+            this.btnXemTheomatHang.UseVisualStyleBackColor = true;
+            this.btnXemTheomatHang.Click += new System.EventHandler(this.btnXemTheomatHang_Click);
             // 
             // lbdoanhthu
             // 
@@ -294,64 +339,51 @@
             // 
             // chart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(15, 205);
             this.chart.Name = "chart";
             this.chart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Pastel;
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart.Series.Add(series2);
             this.chart.Size = new System.Drawing.Size(560, 278);
             this.chart.TabIndex = 13;
             this.chart.Text = "Thống kê doanh thu";
-            // 
-            // btnXemTheomatHang
-            // 
-            this.btnXemTheomatHang.Location = new System.Drawing.Point(19, 77);
-            this.btnXemTheomatHang.Name = "btnXemTheomatHang";
-            this.btnXemTheomatHang.Size = new System.Drawing.Size(122, 23);
-            this.btnXemTheomatHang.TabIndex = 17;
-            this.btnXemTheomatHang.Text = "Xem theo mặt hàng";
-            this.btnXemTheomatHang.UseVisualStyleBackColor = true;
-            this.btnXemTheomatHang.Click += new System.EventHandler(this.btnXemTheomatHang_Click);
-            // 
-            // btnChonThang
-            // 
-            this.btnChonThang.Location = new System.Drawing.Point(150, 77);
-            this.btnChonThang.Name = "btnChonThang";
-            this.btnChonThang.Size = new System.Drawing.Size(122, 23);
-            this.btnChonThang.TabIndex = 19;
-            this.btnChonThang.Text = "Xem theo tháng";
-            this.btnChonThang.UseVisualStyleBackColor = true;
-            this.btnChonThang.Click += new System.EventHandler(this.btnChonThang_Click);
             // 
             // employeesBindingSource
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
             // 
-            // lbtotal
+            // printDocument1
             // 
-            this.lbtotal.AutoSize = true;
-            this.lbtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbtotal.Location = new System.Drawing.Point(147, 31);
-            this.lbtotal.Name = "lbtotal";
-            this.lbtotal.Size = new System.Drawing.Size(20, 18);
-            this.lbtotal.TabIndex = 21;
-            this.lbtotal.Text = "...";
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
             // 
-            // label6
+            // printPreviewDialog1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(16, 31);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 18);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Tổng doanh thu";
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Document = this.printDocument1;
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnPrint.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.btnPrint.Location = new System.Drawing.Point(513, 446);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(75, 23);
+            this.btnPrint.TabIndex = 22;
+            this.btnPrint.Text = "In";
+            this.btnPrint.UseVisualStyleBackColor = false;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // frmQuanLyDonHang
             // 
@@ -420,5 +452,8 @@
         private System.Windows.Forms.Button btnChonThang;
         private System.Windows.Forms.Label lbtotal;
         private System.Windows.Forms.Label label6;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }

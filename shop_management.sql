@@ -271,3 +271,16 @@ FROM Returns r
 INNER JOIN Orders o ON r.OrderID = o.OrderID
 INNER JOIN Customers c ON o.CustomerID = c.CustomerID
 WHERE c.CustomerName like '%a%'
+
+select * from orders where Month(OrderDate) = '4'
+
+SELECT SUM(o.TotalAmount) AS TotalAmountSum 
+FROM Orders o
+JOIN Customers c ON o.CustomerID = c.CustomerID
+JOIN OrderItems oi ON o.OrderID = oi.OrderID
+JOIN Products p ON oi.ProductID = p.ProductID
+WHERE p.ProductName like N'%z%'
+
+
+SELECT SUM(TotalAmount) AS TotalAmountSum FROM Orders
+WHERE YEAR(OrderDate) = '2023' AND MONTH(OrderDate) = '4'
