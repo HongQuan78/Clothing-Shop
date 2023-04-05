@@ -52,15 +52,15 @@
             this.btnShow = new System.Windows.Forms.Button();
             this.timeFilter = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbAmountMonth = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.lbAmountDate = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.lbdoanhthu = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.btnXemTheomatHang = new System.Windows.Forms.Button();
+            this.btnChonThang = new System.Windows.Forms.Button();
             this.employeesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lbtotal = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.viewOrders)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,8 +70,9 @@
             // 
             // viewOrders
             // 
+            this.viewOrders.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.viewOrders.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viewOrders.Location = new System.Drawing.Point(16, 138);
+            this.viewOrders.Location = new System.Drawing.Point(19, 102);
             this.viewOrders.Name = "viewOrders";
             this.viewOrders.Size = new System.Drawing.Size(569, 318);
             this.viewOrders.TabIndex = 0;
@@ -91,6 +92,7 @@
             // 
             // btnAddOrder
             // 
+            this.btnAddOrder.BackColor = System.Drawing.Color.Cyan;
             this.btnAddOrder.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddOrder.Location = new System.Drawing.Point(227, 129);
@@ -98,11 +100,12 @@
             this.btnAddOrder.Size = new System.Drawing.Size(102, 26);
             this.btnAddOrder.TabIndex = 2;
             this.btnAddOrder.Text = "Thêm";
-            this.btnAddOrder.UseVisualStyleBackColor = true;
+            this.btnAddOrder.UseVisualStyleBackColor = false;
             this.btnAddOrder.Click += new System.EventHandler(this.btnAddOrder_Click);
             // 
             // btnDeleteOrder
             // 
+            this.btnDeleteOrder.BackColor = System.Drawing.Color.Red;
             this.btnDeleteOrder.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDeleteOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeleteOrder.Location = new System.Drawing.Point(354, 129);
@@ -110,7 +113,7 @@
             this.btnDeleteOrder.Size = new System.Drawing.Size(102, 26);
             this.btnDeleteOrder.TabIndex = 3;
             this.btnDeleteOrder.Text = "Xóa";
-            this.btnDeleteOrder.UseVisualStyleBackColor = true;
+            this.btnDeleteOrder.UseVisualStyleBackColor = false;
             this.btnDeleteOrder.Click += new System.EventHandler(this.btnDeleteOrder_Click);
             // 
             // txtSearchBox
@@ -223,6 +226,7 @@
             // 
             // btnShow
             // 
+            this.btnShow.BackColor = System.Drawing.Color.Cyan;
             this.btnShow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnShow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShow.Location = new System.Drawing.Point(100, 129);
@@ -230,13 +234,14 @@
             this.btnShow.Size = new System.Drawing.Size(102, 26);
             this.btnShow.TabIndex = 9;
             this.btnShow.Text = "Hiển thị";
-            this.btnShow.UseVisualStyleBackColor = true;
+            this.btnShow.UseVisualStyleBackColor = false;
             this.btnShow.Click += new System.EventHandler(this.btnShow_Click);
             // 
             // timeFilter
             // 
+            this.timeFilter.CustomFormat = "MM";
             this.timeFilter.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.timeFilter.Location = new System.Drawing.Point(465, 112);
+            this.timeFilter.Location = new System.Drawing.Point(468, 80);
             this.timeFilter.Name = "timeFilter";
             this.timeFilter.Size = new System.Drawing.Size(120, 20);
             this.timeFilter.TabIndex = 10;
@@ -244,10 +249,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.lbAmountMonth);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.lbAmountDate);
+            this.panel1.Controls.Add(this.lbtotal);
             this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btnChonThang);
+            this.panel1.Controls.Add(this.btnXemTheomatHang);
             this.panel1.Controls.Add(this.lbdoanhthu);
             this.panel1.Controls.Add(this.viewOrders);
             this.panel1.Controls.Add(this.timeFilter);
@@ -257,51 +262,11 @@
             this.panel1.Size = new System.Drawing.Size(591, 472);
             this.panel1.TabIndex = 11;
             // 
-            // lbAmountMonth
-            // 
-            this.lbAmountMonth.AutoSize = true;
-            this.lbAmountMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAmountMonth.Location = new System.Drawing.Point(228, 56);
-            this.lbAmountMonth.Name = "lbAmountMonth";
-            this.lbAmountMonth.Size = new System.Drawing.Size(20, 18);
-            this.lbAmountMonth.TabIndex = 16;
-            this.lbAmountMonth.Text = "...";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(13, 56);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(209, 18);
-            this.label8.TabIndex = 15;
-            this.label8.Text = "Tổng doanh thu theo tháng";
-            // 
-            // lbAmountDate
-            // 
-            this.lbAmountDate.AutoSize = true;
-            this.lbAmountDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAmountDate.Location = new System.Drawing.Point(228, 87);
-            this.lbAmountDate.Name = "lbAmountDate";
-            this.lbAmountDate.Size = new System.Drawing.Size(20, 18);
-            this.lbAmountDate.TabIndex = 14;
-            this.lbAmountDate.Text = "...";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(13, 87);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(209, 18);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Tổng doanh thu trong ngày";
-            // 
             // lbdoanhthu
             // 
             this.lbdoanhthu.AutoSize = true;
             this.lbdoanhthu.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbdoanhthu.Location = new System.Drawing.Point(144, 20);
+            this.lbdoanhthu.Location = new System.Drawing.Point(124, 423);
             this.lbdoanhthu.Name = "lbdoanhthu";
             this.lbdoanhthu.Size = new System.Drawing.Size(20, 18);
             this.lbdoanhthu.TabIndex = 12;
@@ -311,11 +276,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 20);
+            this.label4.Location = new System.Drawing.Point(16, 423);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(125, 18);
+            this.label4.Size = new System.Drawing.Size(102, 18);
             this.label4.TabIndex = 11;
-            this.label4.Text = "Tổng doanh thu";
+            this.label4.Text = "Tổng số tiền";
             // 
             // label3
             // 
@@ -344,9 +309,49 @@
             this.chart.TabIndex = 13;
             this.chart.Text = "Thống kê doanh thu";
             // 
+            // btnXemTheomatHang
+            // 
+            this.btnXemTheomatHang.Location = new System.Drawing.Point(19, 77);
+            this.btnXemTheomatHang.Name = "btnXemTheomatHang";
+            this.btnXemTheomatHang.Size = new System.Drawing.Size(122, 23);
+            this.btnXemTheomatHang.TabIndex = 17;
+            this.btnXemTheomatHang.Text = "Xem theo mặt hàng";
+            this.btnXemTheomatHang.UseVisualStyleBackColor = true;
+            this.btnXemTheomatHang.Click += new System.EventHandler(this.btnXemTheomatHang_Click);
+            // 
+            // btnChonThang
+            // 
+            this.btnChonThang.Location = new System.Drawing.Point(150, 77);
+            this.btnChonThang.Name = "btnChonThang";
+            this.btnChonThang.Size = new System.Drawing.Size(122, 23);
+            this.btnChonThang.TabIndex = 19;
+            this.btnChonThang.Text = "Xem theo tháng";
+            this.btnChonThang.UseVisualStyleBackColor = true;
+            this.btnChonThang.Click += new System.EventHandler(this.btnChonThang_Click);
+            // 
             // employeesBindingSource
             // 
             this.employeesBindingSource.DataSource = typeof(Clothing_shop.Model.Employees);
+            // 
+            // lbtotal
+            // 
+            this.lbtotal.AutoSize = true;
+            this.lbtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbtotal.Location = new System.Drawing.Point(147, 31);
+            this.lbtotal.Name = "lbtotal";
+            this.lbtotal.Size = new System.Drawing.Size(20, 18);
+            this.lbtotal.TabIndex = 21;
+            this.lbtotal.Text = "...";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(16, 31);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 18);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Tổng doanh thu";
             // 
             // frmQuanLyDonHang
             // 
@@ -411,9 +416,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
-        private System.Windows.Forms.Label lbAmountDate;
+        private System.Windows.Forms.Button btnXemTheomatHang;
+        private System.Windows.Forms.Button btnChonThang;
+        private System.Windows.Forms.Label lbtotal;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lbAmountMonth;
-        private System.Windows.Forms.Label label8;
     }
 }

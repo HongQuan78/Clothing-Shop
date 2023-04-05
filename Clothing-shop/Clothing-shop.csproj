@@ -85,6 +85,18 @@
     <Compile Include="DeleteCate.Designer.cs">
       <DependentUpon>DeleteCate.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmChonMatHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonMatHang.Designer.cs">
+      <DependentUpon>frmChonMatHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChonThang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChonThang.Designer.cs">
+      <DependentUpon>frmChonThang.cs</DependentUpon>
+    </Compile>
     <Compile Include="getReason.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +169,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteCate.resx">
       <DependentUpon>DeleteCate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChonMatHang.resx">
+      <DependentUpon>frmChonMatHang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChonThang.resx">
+      <DependentUpon>frmChonThang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmHangBiTraLai.resx">
       <DependentUpon>frmHangBiTraLai.cs</DependentUpon>

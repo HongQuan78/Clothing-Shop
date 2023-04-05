@@ -130,36 +130,40 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.button1.Location = new System.Drawing.Point(313, 350);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 23);
             this.button1.TabIndex = 12;
             this.button1.Text = "Thêm";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // chooseCustomer
             // 
+            this.chooseCustomer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.chooseCustomer.Location = new System.Drawing.Point(115, 298);
             this.chooseCustomer.Name = "chooseCustomer";
             this.chooseCustomer.Size = new System.Drawing.Size(114, 23);
             this.chooseCustomer.TabIndex = 13;
             this.chooseCustomer.Text = "Chọn Khách Hàng";
-            this.chooseCustomer.UseVisualStyleBackColor = true;
+            this.chooseCustomer.UseVisualStyleBackColor = false;
             this.chooseCustomer.Click += new System.EventHandler(this.chooseCustomer_Click);
             // 
             // addOrderItems
             // 
+            this.addOrderItems.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.addOrderItems.Location = new System.Drawing.Point(255, 298);
             this.addOrderItems.Name = "addOrderItems";
             this.addOrderItems.Size = new System.Drawing.Size(110, 23);
             this.addOrderItems.TabIndex = 15;
             this.addOrderItems.Text = "Thêm sản phẩm";
-            this.addOrderItems.UseVisualStyleBackColor = true;
+            this.addOrderItems.UseVisualStyleBackColor = false;
             this.addOrderItems.Click += new System.EventHandler(this.addOrderItems_Click);
             // 
             // OrderView
             // 
+            this.OrderView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.OrderView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrderView.Location = new System.Drawing.Point(3, 130);
             this.OrderView.Name = "OrderView";
@@ -278,12 +282,14 @@
             // 
             // btnDeleteOrderItems
             // 
+            this.btnDeleteOrderItems.BackColor = System.Drawing.Color.Red;
+            this.btnDeleteOrderItems.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnDeleteOrderItems.Location = new System.Drawing.Point(395, 298);
             this.btnDeleteOrderItems.Name = "btnDeleteOrderItems";
             this.btnDeleteOrderItems.Size = new System.Drawing.Size(109, 23);
             this.btnDeleteOrderItems.TabIndex = 22;
             this.btnDeleteOrderItems.Text = "Xóa sản phẩm";
-            this.btnDeleteOrderItems.UseVisualStyleBackColor = true;
+            this.btnDeleteOrderItems.UseVisualStyleBackColor = false;
             this.btnDeleteOrderItems.Click += new System.EventHandler(this.btnDeleteOrderItems_Click);
             // 
             // btnDone
@@ -316,6 +322,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(532, 406);
             this.panel1.TabIndex = 24;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel2
             // 

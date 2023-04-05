@@ -56,6 +56,7 @@
             // 
             // productsView
             // 
+            this.productsView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.productsView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.productsView.Location = new System.Drawing.Point(12, 267);
             this.productsView.Name = "productsView";
@@ -120,22 +121,24 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btnAdd.Location = new System.Drawing.Point(481, 210);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 20;
             this.btnAdd.Text = "Thêm";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.UseVisualStyleBackColor = false;
             this.btnAdd.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnback
             // 
+            this.btnback.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btnback.Location = new System.Drawing.Point(644, 210);
             this.btnback.Name = "btnback";
             this.btnback.Size = new System.Drawing.Size(103, 23);
             this.btnback.TabIndex = 21;
             this.btnback.Text = "Thêm Đơn Hàng";
-            this.btnback.UseVisualStyleBackColor = true;
+            this.btnback.UseVisualStyleBackColor = false;
             this.btnback.Click += new System.EventHandler(this.btnback_Click);
             // 
             // amount

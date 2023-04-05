@@ -250,6 +250,82 @@ namespace Clothing_shop.DAO
             return orders;
         }
 
+        public List<Orders> GetOrderByMonth(string month)
+        {
+            List<Orders> orders = new List<Orders>();
+
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "select * from orders where Month(OrderDate) = @month";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@month", month);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Orders order = new Orders();
+                        order.OrderID = reader.GetInt32(0);
+                        order.CustomerID = reader.GetInt32(1);
+                        order.EmployeeID = reader.GetInt32(2);
+                        order.OrderDate = reader.GetDateTime(3);
+                        order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
+                        order.Status = reader.GetString(5);
+                        order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
+                        orders.Add(order);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return orders;
+        }
+
+        public List<Orders> GetOrderByProductName(string name)
+        {
+            List<Orders> orders = new List<Orders>();
+
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT o.OrderID, o.CustomerID, o.EmployeeID, o.OrderDate, o.TotalAmount, o.[Status], o.ModifiedDate\r\nFROM Orders o\r\nJOIN Customers c ON o.CustomerID = c.CustomerID\r\nJOIN OrderItems oi ON o.OrderID = oi.OrderID\r\nJOIN Products p ON oi.ProductID = p.ProductID\r\nWHERE p.ProductName like N'%@name%'";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@name", name);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        Orders order = new Orders();
+                        order.OrderID = reader.GetInt32(0);
+                        order.CustomerID = reader.GetInt32(1);
+                        order.EmployeeID = reader.GetInt32(2);
+                        order.OrderDate = reader.GetDateTime(3);
+                        order.TotalAmount = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
+                        order.Status = reader.GetString(5);
+                        order.ModifiedDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
+                        orders.Add(order);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return orders;
+        }
+
         public double GetTotalAmount()
         {
             double total = 0;
@@ -307,6 +383,40 @@ namespace Clothing_shop.DAO
             }
             return total;
         }
+
+        public double GetTotalAmountByProductName(string name)
+        {
+            double total = 0;
+            using (connection = new DBConnect().getConnection())
+            {
+                string query = "SELECT SUM(o.TotalAmount) AS TotalAmountSum " +
+                    "FROM Orders o " +
+                    "JOIN Customers c ON o.CustomerID = c.CustomerID " +
+                    "JOIN OrderItems oi ON o.OrderID = oi.OrderID " +
+                    "JOIN Products p ON oi.ProductID = p.ProductID " +
+                    "WHERE p.ProductName like N@Name";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Name", name);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        total = reader.GetDouble(0);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            return total;
+        }
+
 
         public double GetTotalAmountByMonth(DateTime date)
         {
@@ -369,6 +479,7 @@ namespace Clothing_shop.DAO
             return data;
         }
 
+        //get order by month
 
 
     }

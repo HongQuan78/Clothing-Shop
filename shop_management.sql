@@ -265,3 +265,9 @@ FROM Orders
 WHERE OrderDate BETWEEN '2023-01-01' AND '2023-12-31'
 GROUP BY MONTH(OrderDate), YEAR(OrderDate)
 ORDER BY YEAR(OrderDate), MONTH(OrderDate)
+
+SELECT r.ReturnID, o.OrderID, c.CustomerName, r.Reason
+FROM Returns r
+INNER JOIN Orders o ON r.OrderID = o.OrderID
+INNER JOIN Customers c ON o.CustomerID = c.CustomerID
+WHERE c.CustomerName like '%a%'

@@ -243,5 +243,10 @@ namespace Clothing_shop
             thread.Start();
             this.Close();
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -4,6 +4,7 @@ using Clothing_shop.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Threading;
 
 using System.Windows.Forms;
@@ -12,7 +13,8 @@ using System.Windows.Forms.DataVisualization.Charting;
 namespace Clothing_shop
 {
     public partial class frmQuanLyDonHang : Form
-    {
+    {   
+        public string totalText = "0";
         public int orderID = -1;
         private OrderDAO ordersDAO = new OrderDAO();
         private CustomerDAO customerDAO = new CustomerDAO();
@@ -31,16 +33,16 @@ namespace Clothing_shop
         }
 
         private void frmQuanLyDonHang_Load(object sender, EventArgs e)
-        {
+        {   
+            lbtotal.Text = ordersDAO.GetTotalAmount().ToString();
             displayOrder();
             displayChart();
-            lbdoanhthu.Text = ordersDAO.GetTotalAmount().ToString() + "vnd";
             quanLyNhanVien_Menu.Visible = true;
             if (!string.Equals("Manager", frmLogin.employeeLogin.EmployeeRole, StringComparison.CurrentCultureIgnoreCase))
             {
                 quanLyNhanVien_Menu.Visible = false;
             }
-            
+
         }
 
         public void DGVConfig(List<Orders> orders)
@@ -64,6 +66,7 @@ namespace Clothing_shop
             }
             viewOrders.DataSource = dt;
             viewOrders.AutoGenerateColumns = true;
+            lbdoanhthu.Text = totalText;
         }
 
         public void displayOrder()
@@ -194,12 +197,8 @@ namespace Clothing_shop
         {
             DateTime selectedDate = timeFilter.Value;
             var orders = ordersDAO.GetOrderByDate(selectedDate);
+            totalText = ordersDAO.GetTotalAmountByDate(selectedDate).ToString() + " vnd";
             DGVConfig(orders);
-            lbAmountDate.Text = selectedDate.ToString("dd/MM/yyyy") + ": " + ordersDAO.GetTotalAmountByDate(selectedDate).ToString() + "vnd";
-            lbAmountMonth.Text = selectedDate.ToString("MM/yyyy") + ": " + ordersDAO.GetTotalAmountByMonth(selectedDate).ToString() + " vnd";
-
-
-
         }
 
         private void displayChart()
@@ -220,7 +219,7 @@ namespace Clothing_shop
             chart.ChartAreas[0].AxisX.Title = "Month/Year";
 
             // Set the Y-axis title
-            chart.ChartAreas[0].AxisY.Title = "Total Revenue";
+            chart.ChartAreas[0].AxisY.Title = "Total Revenue (vnd)";
 
             // Add the chart data to the TotalRevenue series
             foreach (KeyValuePair<string, double> data in chartData)
@@ -228,6 +227,17 @@ namespace Clothing_shop
                 chart.Series["TotalRevenue"].Points.AddXY(data.Key, data.Value);
             }
 
+        }
+
+        private void btnXemTheomatHang_Click(object sender, EventArgs e)
+        {
+            frmChonMatHang chonMatHang = new frmChonMatHang();
+            chonMatHang.ShowDialog();
+        }
+
+        private void btnChonThang_Click(object sender, EventArgs e)
+        {
+            new frmChonThang().ShowDialog();
         }
     }
 }

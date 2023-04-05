@@ -45,7 +45,7 @@ namespace Clothing_shop
             txtAddress.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerAddress;
             txtPhone.Text = new CustomerDAO().GetCustomerById(orderDisplay.CustomerID).CustomerPhone;
             orderDate.Enabled = false;
-            modifierDate.Enabled= false;
+            modifierDate.Enabled = false;
             if (returnID >= 0) { checkBox1.Checked = true; }
             if (orderDisplay.ModifiedDate != DateTime.MinValue)
             {
@@ -155,8 +155,9 @@ namespace Clothing_shop
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (returnID >= 0)
-            {   
-                if(!checkBox1.Checked) {
+            {
+                if (!checkBox1.Checked)
+                {
                     new ReturnsDAO().Delete(returnID);
                 }
                 return;
@@ -172,7 +173,7 @@ namespace Clothing_shop
                 });
                 return;
             }
-           
+
         }
 
         private void OrderDetail_FormClosed(object sender, FormClosedEventArgs e)
@@ -182,6 +183,100 @@ namespace Clothing_shop
             {
                 frm.displayReturn();
             }
+        }
+
+        Bitmap bmp;
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            Graphics g = this.CreateGraphics();
+            bmp = new Bitmap(this.Size.Width, this.Size.Height, g);
+            Graphics mg = Graphics.FromImage(bmp);
+            mg.CopyFromScreen(this.Location.X, this.Location.Y, 0, 0, this.Size);
+            printPreviewDialog1.ShowDialog();
+        }
+
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            // Lấy các thông tin khách hàng và đơn hàng
+            string empName = "Tên nhân viên: " + txtEmpName.Text;
+            string cusName = "Tên khách hàng: " + txtCusname.Text;
+            string cusAddress = "Địa chỉ khách hàng: " + txtAddress.Text;
+            string cusPhone = "Số điện thoại khách hàng: " + txtPhone.Text;
+            string total = "Tổng giá: " + txtTotal.Text;
+            string status = "Trạng thái: " + cmbStatus.Text;
+            string orderDate = "Ngày đặt hàng: " + this.orderDate.Text;
+            string modifierDate = "Đã giao vào ngày: " + this.modifierDate.Text;
+
+           
+
+            // Tạo font và brush để vẽ chữ
+            Font font = new Font("Arial", 12, FontStyle.Bold);
+            SolidBrush brush = new SolidBrush(Color.Black);
+
+            // Vị trí để in các thông tin
+            PointF empNamePosition = new PointF(10, 10);
+            PointF cusNamePosition = new PointF(10, 30);
+            PointF cusAddressPosition = new PointF(10, 50);
+            PointF cusPhonePosition = new PointF(10, 70);
+            PointF totalPosition = new PointF(10, 90);
+            PointF statusPosition = new PointF(10, 110);
+            PointF orderDatePosition = new PointF(10, 130);
+            PointF modifierDatePosition = new PointF(10, 150);
+
+            // In các thông tin khách hàng và đơn hàng
+            e.Graphics.DrawString(empName, font, brush, empNamePosition);
+            e.Graphics.DrawString(cusName, font, brush, cusNamePosition);
+            e.Graphics.DrawString(cusAddress, font, brush, cusAddressPosition);
+            e.Graphics.DrawString(cusPhone, font, brush, cusPhonePosition);
+            e.Graphics.DrawString(total, font, brush, totalPosition);
+            e.Graphics.DrawString(status, font, brush, statusPosition);
+            e.Graphics.DrawString(orderDate, font, brush, orderDatePosition);
+            e.Graphics.DrawString(modifierDate, font, brush, modifierDatePosition);
+
+            // Vị trí của bảng
+            PointF tablePosition = new PointF(10, 200);
+
+            // Kích thước của mỗi ô
+            float cellHeight = 30;
+
+            // Kích thước của các cột trong bảng
+            float productNameWidth = 300;
+            float unitPriceWidth = 100;
+            float quantityWidth = 100;
+            float totalWidth = 100;
+
+            // Vị trí của từng cột trong bảng
+            PointF productNamePosition = tablePosition;
+            PointF unitPricePosition = new PointF(productNamePosition.X + productNameWidth, tablePosition.Y);
+            PointF quantityPosition = new PointF(unitPricePosition.X + unitPriceWidth, tablePosition.Y);
+            PointF totalPricePosition = new PointF(quantityPosition.X + quantityWidth, tablePosition.Y);
+            PointF totalPositionTable = new PointF(quantityPosition.X + quantityWidth, tablePosition.Y);
+            
+            var orderItems = new OrderItemsDAO().getInvoice(orderID);
+            // Vẽ các ô trong bảng
+            foreach (var orderItem in orderItems)
+            {
+                // Vẽ tên sản phẩm
+                e.Graphics.DrawString(orderItem.ProductName, font, brush, productNamePosition);
+
+                // Vẽ số lượng sản phẩm
+                e.Graphics.DrawString(orderItem.OrderItems_Quantity.ToString(), font, brush, quantityPosition);
+
+                // Vẽ tổng giá tiền của sản phẩm đó
+                e.Graphics.DrawString(orderItem.Price.ToString(), font, brush, unitPricePosition);
+                e.Graphics.DrawString((orderItem.Price * orderItem.OrderItems_Quantity).ToString(), font, brush, totalPricePosition);
+
+                // Di chuyển đến hàng tiếp theo
+                productNamePosition.Y += cellHeight;
+                unitPricePosition.Y += cellHeight;
+                quantityPosition.Y += cellHeight;
+                totalPricePosition.Y += cellHeight;
+                totalPositionTable.Y += cellHeight;
+            }
+
+            // Vẽ đường viền cho bảng
+            e.Graphics.DrawRectangle(new Pen(Color.Black), tablePosition.X, tablePosition.Y, productNameWidth + unitPriceWidth + quantityWidth + totalWidth, cellHeight * (orderItems.Count + 1));
+
         }
     }
 }
